@@ -4,7 +4,7 @@ const MemorySlot = ({id, label, items}) => {
     const { setNodeRef } = useDroppable({ id });
 
     return (
-        <div ref={setNodeRef} className="border-2 rounded-xl w-1/3 h-[calc(100%-1rem)] m-2 bg-white">
+        <div ref={setNodeRef} className="border-2 rounded-xl w-1/3 h-[calc(100%-1rem)] m-2 bg-white overflow-auto">
             <h1>{label}</h1>
             {items.map((item, index) => 
                 <button  key={index} className="bg-gray-200 hover:bg-gray-400 font-bold py-2 px-4 rounded-full border-2 h-10 m-1">
