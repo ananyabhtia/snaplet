@@ -1,9 +1,10 @@
 import { useDraggable } from "@dnd-kit/core";
+import VariableButton from "./variableButton";
 
-const DraggableButton = ({ id, label }) => {
+const DraggableItem = ({ id, label, type, children }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id,
-        data: { id, label },
+        data: { id, label, type },
     });
 
     const style = {
@@ -13,22 +14,26 @@ const DraggableButton = ({ id, label }) => {
     };
 
     return (
-        <button 
+        <div 
             ref={setNodeRef} 
             {...listeners} 
             {...attributes} 
             style={style} 
-            className="bg-gray-200 hover:bg-gray-400 font-bold py-2 px-4 rounded-full border-2 h-10 m-1"
         >
-            {label}
-        </button>
+            {children}
+        </div>
     );
 };
 
 const VariablesWindow = () => {
     return (
         <div className="w-full h-5/11 border-2 rounded-xl bg-gray-300">
-            <DraggableButton id="variable-1" label="variable" />
+            <DraggableItem id="variable-1" label="beep" type="t2">
+                <VariableButton name="beep" value="beep" type="t2" />
+            </DraggableItem>
+            <DraggableItem id="variable-2" label="boop" type="variable">
+                <VariableButton name="" value="" type="variable" />
+            </DraggableItem>
         </div>
     );
 };
