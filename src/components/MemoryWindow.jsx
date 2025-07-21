@@ -7,8 +7,8 @@ const MemorySlot = ({id, label, items}) => {
     return (
         <div ref={setNodeRef} className="border-2 rounded-xl w-1/3 h-[calc(100%-1rem)] m-2 bg-white overflow-auto">
             <h1>{label}</h1>
-            {items.map((item, index) => 
-                <VariableButton key={index} name={item.label} value="value" type={item.type} />
+            {items.map((item) => 
+                <VariableButton key={item.id} name={item.label} value="" type={item.type} />
             )}
         </div>
     );

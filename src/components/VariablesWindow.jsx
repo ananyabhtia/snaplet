@@ -32,7 +32,7 @@ const VariablesWindow = () => {
                 <VariableButton name="beep" value="beep" type="t2" />
             </DraggableItem>
             <DraggableItem id="variable-2" label="boop" type="variable">
-                <VariableButton name="" value="" type="variable" />
+                <VariableButton name="boop" value="some value" type="variable" />
             </DraggableItem>
         </div>
     );
