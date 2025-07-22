@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 import VariableButton from "./variableButton";
+import DraggableItem from "./DraggableItem";
 
 const MemorySlot = ({id, label, items}) => {
     const { setNodeRef } = useDroppable({ id });
@@ -8,7 +9,9 @@ const MemorySlot = ({id, label, items}) => {
         <div ref={setNodeRef} className="border-2 rounded-xl w-1/3 h-[calc(100%-1rem)] m-2 bg-white overflow-auto">
             <h1>{label}</h1>
             {items.map((item) => 
-                <VariableButton key={item.id} name={item.label} value="" type={item.type} />
+                // <DraggableItem id={item.id} label={item.label} type={item.type}>
+                    <VariableButton key={item.id} name={item.label} value="" type={item.type} />
+                // </DraggableItem>
             )}
         </div>
     );

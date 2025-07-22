@@ -1,39 +1,19 @@
-import { useDraggable } from "@dnd-kit/core";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import VariableButton from "./variableButton";
+import DraggableItem from "./DraggableItem";
 
-const DraggableItem = ({ id, label, type, children }) => {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id,
-        data: { id, label, type },
-    });
-
-    const style = {
-        transform : transform
-            ? `translate(${transform.x}px, ${transform.y}px)`
-            : undefined,
-    };
-
-    return (
-        <div 
-            ref={setNodeRef} 
-            {...listeners} 
-            {...attributes} 
-            style={style} 
-        >
-            {children}
-        </div>
-    );
-};
-
-const VariablesWindow = () => {
+const VariablesWindow = ({ frameItems }) => {
     return (
         <div className="w-full h-5/11 border-2 rounded-xl bg-gray-300">
-            <DraggableItem id="variable-1" label="beep" type="t2">
-                <VariableButton name="beep" value="beep" type="t2" />
+            <DraggableItem id="variable-1" label="beep" type="frame">
+                <VariableButton name="beep" value="beep" type="frame" items={frameItems} />
             </DraggableItem>
-            <DraggableItem id="variable-2" label="boop" type="variable">
-                <VariableButton name="boop" value="some value" type="variable" />
+            <p>stack frame</p>
+            <DraggableItem id="variable-2" label="" type="variable">
+                <VariableButton name="" value="" type="variable" />
             </DraggableItem>
+            <p>variable</p>
         </div>
     );
 };

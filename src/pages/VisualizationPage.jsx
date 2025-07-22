@@ -11,6 +11,7 @@ const VisPage = () => {
     const [globalsItems, setGlobalsItems] = useState([]);
     const [stackItems, setStackItems] = useState([]);
     const [heapItems, setHeapItems] = useState([]);
+    const [frameItems, setFrameItems] = useState([]);
 
     const HandleDragEnd = (event) => {
         const { active, over } = event;
@@ -21,6 +22,8 @@ const VisPage = () => {
             setStackItems((items) => [...items, active.data.current]);
         } else if (over?.id === "heap-area") {
             setHeapItems((items) => [...items, active.data.current]);
+        } else if (over?.id === "frame-droppable") {
+            setFrameItems((items) => [...items, active.data.current]);
         }
     };
 
@@ -35,7 +38,7 @@ const VisPage = () => {
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-2 border-purple-600 rounded-xl">
                         <CodeWindow />
-                        <VariablesWindow />
+                        <VariablesWindow frameItems={frameItems} />
                     </div>
                 </div>
             </div>
