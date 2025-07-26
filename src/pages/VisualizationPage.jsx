@@ -58,9 +58,9 @@ const VisPage = () => {
 
     return (
         <DndContext sensors={sensors} onDragEnd={HandleDragEnd}>
-            <div className="px-8 py-4">
+            <div className="px-8 py-4 h-screen flex flex-col">
                 <Header />
-                <div className="flex flex-row w-full h-183 border-2 border-pink-500 rounded-xl">
+                <div className="flex flex-row w-full flex-1 border-2 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-2 border-green-600 rounded-xl">
                         <ButtonBox />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} />
