@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
+import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
 import ButtonBox from "../components/ButtonBox";
 import MemoryWindow from "../components/MemoryWindow";
@@ -8,6 +9,12 @@ import VariablesWindow from "../components/VariablesWindow";
 
 
 const VisPage = () => {
+    const [variableItems, setVariableItems] = useState([
+        { id: uuidv4(), name: "", value: "", type: "variable" }
+    ]);
+    const [activeFrames, setActiveFrames] = useState([
+        { id: uuidv4(), name: "", value: "", type: "frame" }
+    ]);
     const [globalsItems, setGlobalsItems] = useState([]);
     const [stackItems, setStackItems] = useState([]);
     const [heapItems, setHeapItems] = useState([]);
@@ -15,16 +22,36 @@ const VisPage = () => {
 
     const HandleDragEnd = (event) => {
         const { active, over } = event;
+
+        if (!over || !active.data.current) return;
+
+        const item = active.data.current;
     
         if (over?.id === "globals-area") {
-            setGlobalsItems((items) => [...items, active.data.current]);
+            setGlobalsItems((prev) => [...prev, item]);
         } else if (over?.id === "stack-area") {
-            setStackItems((items) => [...items, active.data.current]);
+            setStackItems((prev) => [...prev, item]);
         } else if (over?.id === "heap-area") {
-            setHeapItems((items) => [...items, active.data.current]);
+            setHeapItems((prev) => [...prev, item]);
         } else if (over?.id === "frame-droppable") {
-            setFrameItems((items) => [...items, active.data.current]);
+            setFrameItems((prev) => [...prev, item]);
         }
+
+        if (item.type === "variable") {
+            setVariableItems((prev) => [
+                ...prev.filter((v) => v.id !== item.id),
+                { id: uuidv4(), name: "", value: "", type: "variable" }
+            ])
+        }
+
+        if (item.type === "frame") {
+            setActiveFrames((prev) => [
+                ...prev.filter((v) => v.id !== item.id),
+                { id: uuidv4(), name: "", value: "", type: "frame" }
+            ])
+        }
+
+        console.log(item.id);
     };
 
     return (
@@ -38,7 +65,7 @@ const VisPage = () => {
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-2 border-purple-600 rounded-xl">
                         <CodeWindow />
-                        <VariablesWindow frameItems={frameItems} />
+                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} />
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ const MemorySlot = ({id, label, items}) => {
             <h1>{label}</h1>
             {items.map((item) => 
                 // <DraggableItem id={item.id} label={item.label} type={item.type}>
-                    <VariableButton key={item.id} name={item.label} value="" type={item.type} />
+                    <VariableButton key={item.id} name={item.label} value={item.value} type={item.type} />
                 // </DraggableItem>
             )}
         </div>
