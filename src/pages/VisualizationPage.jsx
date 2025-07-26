@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
 import ButtonBox from "../components/ButtonBox";
@@ -19,6 +19,8 @@ const VisPage = () => {
     const [stackItems, setStackItems] = useState([]);
     const [heapItems, setHeapItems] = useState([]);
     const [frameItems, setFrameItems] = useState([]);
+    const pointerSensor = useSensor(PointerSensor);
+    const sensors = useSensors(pointerSensor);
 
     const HandleDragEnd = (event) => {
         const { active, over } = event;
@@ -55,7 +57,7 @@ const VisPage = () => {
     };
 
     return (
-        <DndContext onDragEnd={HandleDragEnd}>
+        <DndContext sensors={sensors} onDragEnd={HandleDragEnd}>
             <div className="px-8 py-4">
                 <Header />
                 <div className="flex flex-row w-full h-183 border-2 border-pink-500 rounded-xl">
