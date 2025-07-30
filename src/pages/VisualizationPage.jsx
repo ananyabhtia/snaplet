@@ -36,15 +36,11 @@ const VisPage = () => {
         } else if (over?.id === "heap-area") {
             setHeapItems((prev) => [...prev, item]);
         } else if (over?.id.startsWith("frame-droppable-")) {
-            console.log('hello');
             const frameID = over.id.replace("frame-droppable-", "");
-            console.log(frameItems);
             setFrameItems((prev) => ({
                 ...prev, 
                 [frameID]: [...(prev[frameID] || []), item]}));
         }
-        // {"23848-23874":[{variable1}, {variable2}]}
-        // {"23848-2323948":[{variable3}, {variable4}]}
 
         if (item.type === "variable") {
             setVariableItems((prev) => [
@@ -59,8 +55,6 @@ const VisPage = () => {
                 { id: uuidv4(), name: "", value: "", type: "frame" }
             ])
         }
-
-        console.log(item.id);
     };
 
     return (
