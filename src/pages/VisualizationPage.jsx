@@ -35,9 +35,16 @@ const VisPage = () => {
             setStackItems((prev) => [...prev, item]);
         } else if (over?.id === "heap-area") {
             setHeapItems((prev) => [...prev, item]);
-        } else if (over?.id === "frame-droppable") {
-            setFrameItems((prev) => [...prev, item]);
+        } else if (over?.id.startsWith("frame-droppable-")) {
+            console.log('hello');
+            const frameID = over.id.replace("frame-droppable-", "");
+            console.log(frameItems);
+            setFrameItems((prev) => ({
+                ...prev, 
+                [frameID]: [...(prev[frameID] || []), item]}));
         }
+        // {"23848-23874":[{variable1}, {variable2}]}
+        // {"23848-2323948":[{variable3}, {variable4}]}
 
         if (item.type === "variable") {
             setVariableItems((prev) => [
@@ -63,7 +70,7 @@ const VisPage = () => {
                 <div className="flex flex-row w-full flex-1 border-2 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-2 border-green-600 rounded-xl">
                         <ButtonBox />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-2 border-purple-600 rounded-xl">
                         <CodeWindow />
