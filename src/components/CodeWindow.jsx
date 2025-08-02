@@ -5,16 +5,16 @@ import { noctisLilac } from "@uiw/codemirror-theme-noctis-lilac";
 import "../styles/CodeWindow.css";
 
 const CodeWindow = () => {
-    const [code, setCode] = useState(`print("hello, world!")`);
+    const [code, setCode] = useState(`import banana\n\ndef monkey():\n\tprint("oo oo aa aa")\n\ndef hunger():\n\tprint("WHERE IS MY BANANA")`);
     return (
-        <div className="w-full h-[55%] border-2 rounded-xl bg-white overflow-hidden flex flex-col">
+        <div className="w-full h-[55%] border-2 rounded-xl bg-white overflow-hidden flex flex-col mb-2">
             <CodeMirror
                 value={code} 
                 onChange={(code) => setCode(code)}
                 extensions={[python()]}
                 className="w-full h-full"
                 style={{
-                    fontSize: '14px',
+                    fontSize: '1em',
                     lineHeight: '1.5',
                     height: '100%',
                     overflow: 'auto',

@@ -20,7 +20,7 @@ const MemorySlot = ({id, label, items, frameItems}) => {
 
 const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems}) => {
     return (
-        <div className="flex flex-row w-full h-11/12 border-2 border-yellow-700 rounded-xl items-end bg-gray-300">
+        <div className="flex flex-row w-full h-11/12 border-2 rounded-xl items-end bg-gray-300">
             <MemorySlot id='globals-area' label="globals" items={globalsItems} frameItems={frameItems} />
             <MemorySlot id='stack-area' label="stack" items={stackItems} frameItems={frameItems} />
             <MemorySlot id='heap-area' label="heap" items={heapItems} frameItems={frameItems} />
