@@ -28,13 +28,41 @@ const VisPage = () => {
         if (!over || !active.data.current) return;
 
         const item = active.data.current;
-    
+        const draggedFromGlobals = globalsItems.some((globalsItem) => globalsItem.id === item.id);
+        const draggedFromStack = stackItems.some((stackItem) => stackItem.id === item.id);
+        const draggedFromHeap = heapItems.some((heapItem) => heapItem.id === item.id);
+        const draggedFromBank = !draggedFromGlobals && !draggedFromStack && !draggedFromHeap;
+
         if (over?.id === "globals-area") {
-            setGlobalsItems((prev) => [...prev, item]);
+            if (!draggedFromGlobals) {
+                setGlobalsItems((prev) => [...prev, item]);
+            };
+            if (draggedFromHeap) {
+                setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
+            };
+            if (draggedFromStack) {
+                setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
+            };
         } else if (over?.id === "stack-area") {
-            setStackItems((prev) => [...prev, item]);
+            if (!draggedFromStack) {
+                setStackItems((prev) => [...prev, item]);
+            };
+            if (draggedFromGlobals) {
+                setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
+            };
+            if (draggedFromHeap) {
+                setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
+            };
         } else if (over?.id === "heap-area") {
-            setHeapItems((prev) => [...prev, item]);
+            if (!draggedFromHeap) {
+                setHeapItems((prev) => [...prev, item]);
+            };
+            if (draggedFromGlobals) {
+                setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
+            };
+            if (draggedFromStack) {
+                setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
+            };
         } else if (over?.id.startsWith("frame-droppable-")) {
             const frameID = over.id.replace("frame-droppable-", "");
             setFrameItems((prev) => ({
@@ -43,17 +71,21 @@ const VisPage = () => {
         }
 
         if (item.type === "variable") {
-            setVariableItems((prev) => [
-                ...prev.filter((v) => v.id !== item.id),
-                { id: uuidv4(), name: "", value: "", type: "variable" }
-            ])
+            if (draggedFromBank) {
+                setVariableItems((prev) => [
+                    ...prev.filter((v) => v.id !== item.id),
+                    { id: uuidv4(), name: "", value: "", type: "variable" }
+                ])
+            }
         }
 
         if (item.type === "frame") {
-            setActiveFrames((prev) => [
-                ...prev.filter((v) => v.id !== item.id),
-                { id: uuidv4(), name: "", value: "", type: "frame" }
-            ])
+            if (draggedFromBank) {
+                setActiveFrames((prev) => [
+                    ...prev.filter((v) => v.id !== item.id),
+                    { id: uuidv4(), name: "", value: "", type: "frame" }
+                ])
+            }
         }
     };
 
