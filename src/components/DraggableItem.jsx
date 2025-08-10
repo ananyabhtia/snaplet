@@ -1,9 +1,9 @@
 import { useDraggable } from "@dnd-kit/core"
 
-const DraggableItem = ({ id, label, type, children }) => {
+const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id,
-        data: { id, label, type },
+        data: children.props,
     });
 
     const style = {

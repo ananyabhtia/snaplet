@@ -28,47 +28,49 @@ const VisPage = () => {
         if (!over || !active.data.current) return;
 
         const item = active.data.current;
+        console.log(item);
         const draggedFromGlobals = globalsItems.some((globalsItem) => globalsItem.id === item.id);
         const draggedFromStack = stackItems.some((stackItem) => stackItem.id === item.id);
         const draggedFromHeap = heapItems.some((heapItem) => heapItem.id === item.id);
         const draggedFromBank = !draggedFromGlobals && !draggedFromStack && !draggedFromHeap;
-
+        console.log(item.name);
         if (over?.id === "globals-area") {
             if (!draggedFromGlobals) {
-                setGlobalsItems((prev) => [...prev, item]);
-            };
+                setGlobalsItems((prev) => [...prev, {...item, position: "globals"}]);
+            }
             if (draggedFromHeap) {
                 setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
-            };
+            }
             if (draggedFromStack) {
                 setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
-            };
+            }
         } else if (over?.id === "stack-area") {
             if (!draggedFromStack) {
-                setStackItems((prev) => [...prev, item]);
-            };
+                setStackItems((prev) => [...prev, {...item, position: "stack"}]);
+            }
             if (draggedFromGlobals) {
                 setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
-            };
+            }
             if (draggedFromHeap) {
                 setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
-            };
+            }
         } else if (over?.id === "heap-area") {
             if (!draggedFromHeap) {
-                setHeapItems((prev) => [...prev, item]);
-            };
+                setHeapItems((prev) => [...prev, {...item, position: "heap"}]);
+            }
             if (draggedFromGlobals) {
                 setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
-            };
+            }
             if (draggedFromStack) {
                 setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
-            };
+            }
         } else if (over?.id.startsWith("frame-droppable-")) {
             const frameID = over.id.replace("frame-droppable-", "");
             setFrameItems((prev) => ({
                 ...prev, 
                 [frameID]: [...(prev[frameID] || []), item]}));
         }
+        console.log(heapItems);
 
         if (item.type === "variable") {
             if (draggedFromBank) {
@@ -89,6 +91,24 @@ const VisPage = () => {
         }
     };
 
+    const onInputChange = (id, name, value, position, type) => {
+        if (position === "globals") {
+            setGlobalsItems((prev) => 
+                prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+        } else if (position === "stack") {
+            setStackItems((prev) => 
+                prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+        } else if (position === "heap") {
+            setHeapItems((prev) => 
+                prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+        } else if (position === "bank") {
+            if (type === "variable") {
+                setVariableItems((prev) => 
+                    prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+            }
+        }
+    };
+
     return (
         <DndContext sensors={sensors} onDragEnd={HandleDragEnd}>
             <div className="px-8 py-4 h-screen flex flex-col">
@@ -96,11 +116,11 @@ const VisPage = () => {
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
                         <ButtonBox />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow />
-                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} />
+                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} onInputChange={onInputChange} />
                     </div>
                 </div>
             </div>
