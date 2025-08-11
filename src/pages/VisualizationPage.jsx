@@ -28,12 +28,12 @@ const VisPage = () => {
         if (!over || !active.data.current) return;
 
         const item = active.data.current;
-        console.log(item);
+
         const draggedFromGlobals = globalsItems.some((globalsItem) => globalsItem.id === item.id);
         const draggedFromStack = stackItems.some((stackItem) => stackItem.id === item.id);
         const draggedFromHeap = heapItems.some((heapItem) => heapItem.id === item.id);
         const draggedFromBank = !draggedFromGlobals && !draggedFromStack && !draggedFromHeap;
-        console.log(item.name);
+
         if (over?.id === "globals-area") {
             if (!draggedFromGlobals) {
                 setGlobalsItems((prev) => [...prev, {...item, position: "globals"}]);
@@ -66,11 +66,12 @@ const VisPage = () => {
             }
         } else if (over?.id.startsWith("frame-droppable-")) {
             const frameID = over.id.replace("frame-droppable-", "");
-            setFrameItems((prev) => ({
-                ...prev, 
-                [frameID]: [...(prev[frameID] || []), item]}));
+            if (item.id !== frameID) {
+                setFrameItems((prev) => ({
+                    ...prev, 
+                    [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}]}));
+            }
         }
-        console.log(heapItems);
 
         if (item.type === "variable") {
             if (draggedFromBank) {
@@ -105,7 +106,14 @@ const VisPage = () => {
             if (type === "variable") {
                 setVariableItems((prev) => 
                     prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+            } else if (type === "frame") {
+                setActiveFrames((prev) => 
+                    prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
             }
+        } else if (position.startsWith("stack-frame-")) {
+            const frameID = position.replace("stack-frame-", "");
+            setFrameItems((prev) => ({...prev, 
+                [frameID]: prev[frameID].map(item => item.id === id ? {...item, name: name, value: value} : item)}))
         }
     };
 
