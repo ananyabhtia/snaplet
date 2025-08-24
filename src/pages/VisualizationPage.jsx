@@ -80,24 +80,26 @@ const VisPage = () => {
         } else if (over?.id.startsWith("frame-droppable-")) {
             const frameID = over.id.replace("frame-droppable-", "");
             const oldFrameID = item.position.replace("stack-frame-", "");
-            if (draggedFromGlobals) {
-                setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
-            }
-            if (draggedFromStack) {
-                setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
-            }
-            if (draggedFromHeap) {
-                setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
-            }
-            if (draggedFromBank) {
-                setFrameItems((prev) => ({
-                    ...prev, 
-                    [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}]}));
-            } else if (oldFrameID !== frameID) {
-                setFrameItems((prev) => ({
-                    ...prev, 
-                    [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}],
-                    [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}));
+            if (item.id !== frameID) {
+                if (draggedFromGlobals) {
+                    setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
+                }
+                if (draggedFromStack) {
+                    setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
+                }
+                if (draggedFromHeap) {
+                    setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
+                }
+                if (!draggedFromFrame) {
+                    setFrameItems((prev) => ({
+                        ...prev, 
+                        [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}]}));
+                } else if (oldFrameID !== frameID) {
+                    setFrameItems((prev) => ({
+                        ...prev, 
+                        [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}],
+                        [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}));
+                }
             }
         }
 
