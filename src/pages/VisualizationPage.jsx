@@ -9,6 +9,8 @@ import VariablesWindow from "../components/VariablesWindow";
 
 
 const VisPage = () => {
+    const [currentStep, setCurrentStep] = useState(1);
+    const [stepData, setStepData] = useState({});
     const [variableItems, setVariableItems] = useState([
         { id: uuidv4(), name: "", value: "", type: "variable" }
     ]);
@@ -147,13 +149,68 @@ const VisPage = () => {
         }
     };
 
+    const handleSaveButton = () => {
+        setStepData((prev) => ({...prev, [currentStep]: {
+            'globals': globalsItems,
+            'stack': stackItems,
+            'heap': heapItems,
+            'frames': frameItems
+        }}))
+        console.log(stepData);
+    };
+
+    const handlePreviousButton = () => {
+        if (currentStep > 1) {
+            const newStepCount = currentStep - 1;
+            setCurrentStep((prev) => prev - 1);
+            
+            const stepGlobals = stepData[newStepCount]['globals'];
+            const stepStack = stepData[newStepCount]['stack'];
+            const stepHeap = stepData[newStepCount]['heap'];
+            const stepFrames = stepData[newStepCount]['frames'];
+
+            setGlobalsItems(stepGlobals);
+            setStackItems(stepStack);
+            setHeapItems(stepHeap);
+            setFrameItems(stepFrames);
+
+            console.log(currentStep);
+            console.log(stepGlobals);
+            console.log(stepStack);
+            console.log(stepHeap);
+            console.log(stepFrames);
+        }
+    };
+
+    const handleNextButton = () => {
+        const newStepCount = currentStep + 1;
+        setCurrentStep((prev) => prev + 1);
+        console.log(currentStep);
+        
+        const stepGlobals = stepData[newStepCount]['globals'];
+        const stepStack = stepData[newStepCount]['stack'];
+        const stepHeap = stepData[newStepCount]['heap'];
+        const stepFrames = stepData[newStepCount]['frames'];
+
+        setGlobalsItems(stepGlobals);
+        setStackItems(stepStack);
+        setHeapItems(stepHeap);
+        setFrameItems(stepFrames);
+
+        console.log(currentStep);
+        console.log(stepGlobals);
+        console.log(stepStack);
+        console.log(stepHeap);
+        console.log(stepFrames);
+    };
+
     return (
         <DndContext sensors={sensors} onDragEnd={HandleDragEnd}>
             <div className="px-8 py-4 h-screen flex flex-col">
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
-                        <ButtonBox />
+                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
