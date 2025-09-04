@@ -10,6 +10,8 @@ import VariablesWindow from "../components/VariablesWindow";
 
 const VisPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [totalSteps, setTotalSteps] = useState(1);
+    const [lineNumber, setLineNumber] = useState();
     const [stepData, setStepData] = useState({});
     const [variableItems, setVariableItems] = useState([
         { id: uuidv4(), name: "", value: "", type: "variable" }
@@ -154,7 +156,8 @@ const VisPage = () => {
             'globals': globalsItems,
             'stack': stackItems,
             'heap': heapItems,
-            'frames': frameItems
+            'frames': frameItems,
+            'line': lineNumber
         }}))
         console.log(stepData);
     };
@@ -163,45 +166,67 @@ const VisPage = () => {
         if (currentStep > 1) {
             const newStepCount = currentStep - 1;
             setCurrentStep((prev) => prev - 1);
-            
-            const stepGlobals = stepData[newStepCount]['globals'];
-            const stepStack = stepData[newStepCount]['stack'];
-            const stepHeap = stepData[newStepCount]['heap'];
-            const stepFrames = stepData[newStepCount]['frames'];
 
-            setGlobalsItems(stepGlobals);
-            setStackItems(stepStack);
-            setHeapItems(stepHeap);
-            setFrameItems(stepFrames);
+            setStepData((prev) => {
+                const updatedStepData = {...prev, [currentStep]: {
+                    'globals': globalsItems,
+                    'stack': stackItems,
+                    'heap': heapItems,
+                    'frames': frameItems, 
+                    'line': lineNumber
+                }};
 
-            console.log(currentStep);
-            console.log(stepGlobals);
-            console.log(stepStack);
-            console.log(stepHeap);
-            console.log(stepFrames);
+                const previousStepData = updatedStepData[newStepCount];
+                if (previousStepData) {
+                    setGlobalsItems(previousStepData.globals);
+                    setStackItems(previousStepData.stack);
+                    setHeapItems(previousStepData.heap);
+                    setFrameItems(previousStepData.frames);
+                    setLineNumber(previousStepData.line);
+                    setCurrentStep(newStepCount);
+                }
+                console.log(currentStep);
+                console.log(previousStepData);
+                return updatedStepData;
+            });
         }
     };
 
     const handleNextButton = () => {
         const newStepCount = currentStep + 1;
         setCurrentStep((prev) => prev + 1);
+        if (newStepCount > Object.keys(stepData).length) {
+            setTotalSteps((prev) => prev + 1);
+            setLineNumber("");
+        };
         console.log(currentStep);
-        
-        const stepGlobals = stepData[newStepCount]['globals'];
-        const stepStack = stepData[newStepCount]['stack'];
-        const stepHeap = stepData[newStepCount]['heap'];
-        const stepFrames = stepData[newStepCount]['frames'];
+        console.log(newStepCount);
+        console.log(stepData[newStepCount]);
+        console.log(stepData);
 
-        setGlobalsItems(stepGlobals);
-        setStackItems(stepStack);
-        setHeapItems(stepHeap);
-        setFrameItems(stepFrames);
+        setStepData((prev) => {
+            const updatedStepData = {...prev, [currentStep]: {
+                'globals': globalsItems,
+                'stack': stackItems,
+                'heap': heapItems,
+                'frames': frameItems,
+                'line': lineNumber
+            }};
 
-        console.log(currentStep);
-        console.log(stepGlobals);
-        console.log(stepStack);
-        console.log(stepHeap);
-        console.log(stepFrames);
+            const nextStepData = updatedStepData[newStepCount];
+            if (nextStepData) {
+                setGlobalsItems(nextStepData.globals);
+                setStackItems(nextStepData.stack);
+                setHeapItems(nextStepData.heap);
+                setFrameItems(nextStepData.frames);
+                setLineNumber(nextStepData.line);
+                setCurrentStep(newStepCount);
+            }
+            console.log(currentStep);
+            console.log(nextStepData);
+            console.log(updatedStepData);
+            return updatedStepData;
+        })
     };
 
     return (
@@ -210,7 +235,7 @@ const VisPage = () => {
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
-                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} />
+                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
