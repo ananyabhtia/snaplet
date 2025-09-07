@@ -27,7 +27,7 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
                     <div ref={setNodeRef} className={`w-full min-h-10 h-auto bg-white border-black border-2 rounded-xl mt-2 ${isOver ? 'ring-4 ring-blue-700' : ''}`}>
                         {items?.map((item) => 
                             <DraggableItem key={item.id} id={item.id}>
-                                <VariableButton key={item.id} id={item.id} name={item.name} value={item.value} type={item.type} position={item.position} items={item.items} onInputChange={onInputChange} onClick={() => onDelete(id, type, position)} />
+                                <VariableButton key={item.id} id={item.id} name={item.name} value={item.value} type={item.type} position={item.position} items={item.items} onInputChange={onInputChange} onDelete={onDelete} />
                             </DraggableItem>
                         )}
                     </div>
