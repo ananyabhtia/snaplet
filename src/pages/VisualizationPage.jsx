@@ -11,7 +11,7 @@ import VariablesWindow from "../components/VariablesWindow";
 const VisPage = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [totalSteps, setTotalSteps] = useState(1);
-    const [lineNumber, setLineNumber] = useState();
+    const [lineNumber, setLineNumber] = useState("");
     const [stepData, setStepData] = useState({});
     const [variableItems, setVariableItems] = useState([
         { id: uuidv4(), name: "", value: "", type: "variable" }
@@ -151,6 +151,26 @@ const VisPage = () => {
         }
     };
 
+    const onDelete = (id, type, position) => {
+        if (type === "frame") {
+            setFrameItems(prev => {
+                const { [id]: removed, ...rest } = prev;
+                return rest;
+            });
+        };
+        if (position === "globals") {
+            setGlobalsItems(globalsItems.filter(item => item.id !== id));
+        } else if (position === "stack") {
+            setStackItems(stackItems.filter(item => item.id !== id));
+        } else if (position === "heap") {
+            setHeapItems(heapItems.filter(item => item.id !== id));
+        } else if (position.startsWith("stack-frame-")) {
+            const frameID = position.replace("stack-frame-", "");
+            setFrameItems((prev) => ({...prev,
+                [frameID]: prev[frameID].filter(item => item.id !== id)}));
+        }
+    };
+
     const handleSaveButton = () => {
         setStepData((prev) => ({...prev, [currentStep]: {
             'globals': globalsItems,
@@ -236,7 +256,7 @@ const VisPage = () => {
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
                         <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} onDelete={onDelete} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow />
