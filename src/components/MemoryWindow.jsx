@@ -19,7 +19,7 @@ const MemorySlot = ({id, label, items, frameItems, onInputChange, onDelete}) => 
 
 const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, onInputChange, onDelete}) => {
     return (
-        <div className="flex flex-row w-full h-11/12 border-2 rounded-xl items-end bg-gray-300 z-0">
+        <div className="flex flex-row w-full h-11/12 border-2 rounded-xl bg-gray-300 z-0">
             <MemorySlot id='globals-area' label="globals" items={globalsItems} frameItems={frameItems} onInputChange={onInputChange} onDelete={onDelete} />
             <MemorySlot id='stack-area' label="stack" items={stackItems} frameItems={frameItems} onInputChange={onInputChange} onDelete={onDelete} />
             <MemorySlot id='heap-area' label="heap" items={heapItems} frameItems={frameItems} onInputChange={onInputChange} onDelete={onDelete} />

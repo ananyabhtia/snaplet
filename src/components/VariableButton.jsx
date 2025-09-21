@@ -18,7 +18,7 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
         case "frame":
             const { setNodeRef, isOver } = useDroppable({ id: `frame-droppable-${id}`});
             return (
-                <div className="flex flex-col bg-blue-200 hover:bg-blue-400 font-bold py-2 px-4 rounded-xl border-2 m-2 w-95/100 cursor-move">
+                <div className="text-sm flex flex-col bg-blue-200 hover:bg-blue-400 font-bold py-2 px-4 rounded-xl border-2 m-2 w-95/100 cursor-move">
                     {/* <p>{id}</p> */}
                     <div className="flex flex-row items-center">
                         <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-4/5 rounded-full pl-2" value={name} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
@@ -33,6 +33,14 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
                     </div>
                 </div>
             );
+        case "ret":
+            return (
+                <div className="text-sm flex flex-row font-bold items-center bg-green-200 hover:bg-green-400 py-2 px-4 rounded-xl border-2 h-10 m-2 w-95/100 z-1000 cursor-move">
+                    <p>return</p>
+                    <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-1/2 rounded-full pl-2" value={value} onChange={e => onInputChange(id, name, e.target.value, position, type)} />
+                    {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
+                </div>
+            )
     };
 };
 

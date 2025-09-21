@@ -19,6 +19,9 @@ const VisPage = () => {
     const [activeFrames, setActiveFrames] = useState([
         { id: uuidv4(), name: "", value: "", type: "frame" }
     ]);
+    const [activeReturns, setActiveReturns] = useState([
+        {id: uuidv4(), name: "", value: "", type: "ret"}
+    ]);
     const [globalsItems, setGlobalsItems] = useState([]);
     const [stackItems, setStackItems] = useState([]);
     const [heapItems, setHeapItems] = useState([]);
@@ -124,6 +127,15 @@ const VisPage = () => {
                 ])
             }
         }
+
+        if (item.type === "ret") {
+            if (draggedFromBank) {
+                setActiveReturns((prev) => [
+                    ...prev.filter((v) => v.id !== item.id),
+                    { id: uuidv4(), name: "", value: "", type: "ret"}
+                ])
+            }
+        }
     };
 
     const onInputChange = (id, name, value, position, type) => {
@@ -142,6 +154,9 @@ const VisPage = () => {
                     prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
             } else if (type === "frame") {
                 setActiveFrames((prev) => 
+                    prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+            } else if (type == "ret") {
+                setActiveReturns((prev) =>
                     prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
             }
         } else if (position.startsWith("stack-frame-")) {
@@ -260,7 +275,7 @@ const VisPage = () => {
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow />
-                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} onInputChange={onInputChange} />
+                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} activeReturns={activeReturns} onInputChange={onInputChange} />
                     </div>
                 </div>
             </div>
