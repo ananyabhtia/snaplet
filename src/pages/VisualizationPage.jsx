@@ -368,7 +368,7 @@ const VisPage = () => {
 
     return (
         <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
-            <div className="px-8 py-4 h-screen flex flex-col">
+            <div className="px-8 pb-4 pt-2 h-screen flex flex-col">
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
