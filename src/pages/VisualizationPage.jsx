@@ -22,10 +22,14 @@ const VisPage = () => {
     const [activeReturns, setActiveReturns] = useState([
         {id: uuidv4(), name: "", value: "", type: "ret"}
     ]);
+    const [activeObjects, setActiveObjects] = useState([
+        {id: uuidv4(), name: "", value: "", type: "object"}
+    ]);
     const [globalsItems, setGlobalsItems] = useState([]);
     const [stackItems, setStackItems] = useState([]);
     const [heapItems, setHeapItems] = useState([]);
     const [frameItems, setFrameItems] = useState([]);
+    const [objectItems, setObjectItems] = useState([]);
     const pointerSensor = useSensor(PointerSensor);
     const sensors = useSensors(pointerSensor);
 
@@ -40,7 +44,8 @@ const VisPage = () => {
         const draggedFromStack = stackItems.some((stackItem) => stackItem.id === item.id);
         const draggedFromHeap = heapItems.some((heapItem) => heapItem.id === item.id);
         const draggedFromFrame = item.position.startsWith("stack-frame-");
-        const draggedFromBank = !draggedFromGlobals && !draggedFromStack && !draggedFromHeap && !draggedFromFrame;
+        const draggedFromObject = item.position.startsWith("heap-object-");
+        const draggedFromBank = !draggedFromGlobals && !draggedFromStack && !draggedFromHeap && !draggedFromFrame && !draggedFromObject;
 
         if (over?.id === "globals-area") {
             if (!draggedFromGlobals) {
@@ -56,6 +61,10 @@ const VisPage = () => {
                 const oldFrameID = item.position.replace("stack-frame-", "");
                 setFrameItems((prev) => ({...prev, [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}))
             }
+            if (draggedFromObject) {
+                const oldObjectID = item.position.replace("heap-object-", "");
+                setObjectItems((prev) => ({...prev, [oldObjectID]: prev[oldObjectID].filter(objectItem => objectItem.id !== item.id)}))
+            }
         } else if (over?.id === "stack-area") {
             if (!draggedFromStack) {
                 setStackItems((prev) => [...prev, {...item, position: "stack"}]);
@@ -69,6 +78,10 @@ const VisPage = () => {
             if (draggedFromFrame) {
                 const oldFrameID = item.position.replace("stack-frame-", "");
                 setFrameItems((prev) => ({...prev, [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}))
+            }
+            if (draggedFromObject) {
+                const oldObjectID = item.position.replace("heap-object-", "");
+                setObjectItems((prev) => ({...prev, [oldObjectID]: prev[oldObjectID].filter(objectItem => objectItem.id !== item.id)}))
             }
         } else if (over?.id === "heap-area") {
             if (!draggedFromHeap) {
@@ -84,10 +97,17 @@ const VisPage = () => {
                 const oldFrameID = item.position.replace("stack-frame-", "");
                 setFrameItems((prev) => ({...prev, [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}))
             }
+            if (draggedFromObject) {
+                const oldObjectID = item.position.replace("heap-object-", "");
+                setObjectItems((prev) => ({...prev, [oldObjectID]: prev[oldObjectID].filter(objectItem => objectItem.id !== item.id)}))
+            }
         } else if (over?.id.startsWith("frame-droppable-")) {
             const frameID = over.id.replace("frame-droppable-", "");
             const oldFrameID = item.position.replace("stack-frame-", "");
-            if (item.id !== frameID) {
+            const oldObjectID = item.position.replace("heap-object-", "");
+            if (item.id !== frameID) { // to prevent self-drops
+
+                // if the item started out in a section, remove it from that section
                 if (draggedFromGlobals) {
                     setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
                 }
@@ -96,16 +116,59 @@ const VisPage = () => {
                 }
                 if (draggedFromHeap) {
                     setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
+                } 
+                if (draggedFromObject) {
+                    setObjectItems((prev) => ({
+                        ...prev,
+                        [oldObjectID]: prev[oldObjectID].filter(objectItem => objectItem.id !== item.id) 
+                    }))
                 }
+                // if the item didn't start out in a stack frame, add it to the destination stack frame's items
                 if (!draggedFromFrame) {
                     setFrameItems((prev) => ({
                         ...prev, 
                         [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}]}));
+                
+                // if the item did start out in a stack frame (checking if the drag origin and destination frames
+                // are the same, if they are then don't do anything to prevent duplicates)
+                // remove the item from the origin's items and add it to the destination's items
                 } else if (oldFrameID !== frameID) {
                     setFrameItems((prev) => ({
                         ...prev, 
                         [frameID]: [...(prev[frameID] || []), {...item, position: `stack-frame-${frameID}`}],
                         [oldFrameID]: prev[oldFrameID].filter(frameItem => frameItem.id !== item.id)}));
+                }
+            }
+        } else if (over?.id.startsWith("object-droppable-")) {
+            const objectID = over.id.replace("object-droppable-", "");
+            const oldFrameID = item.position.replace("stack-frame-", "");
+            const oldObjectID = item.position.replace("heap-object-", "");
+            if (item.id !== objectID) {
+                if (draggedFromGlobals) {
+                    setGlobalsItems(globalsItems.filter(globalsItem => globalsItem.id !== item.id));
+                }
+                if (draggedFromStack) {
+                    setStackItems(stackItems.filter(stackItem => stackItem.id !== item.id));
+                }
+                if (draggedFromHeap) {
+                    setHeapItems(heapItems.filter(heapItem => heapItem.id !== item.id));
+                } 
+                if (draggedFromFrame) {
+                    setFrameItems((prev) => ({
+                        ...prev,
+                        [oldFrameID]: prev[oldFrameID].filter(objectItem => objectItem.id !== item.id) 
+                    }))
+                }
+                if (!draggedFromObject) {
+                    setObjectItems((prev) => ({
+                        ...prev, 
+                        [objectID]: [...(prev[objectID] || []), {...item, position: `heap-object-${objectID}`}]}));
+                
+                } else if (oldObjectID !== objectID) {
+                    setObjectItems((prev) => ({
+                        ...prev, 
+                        [objectID]: [...(prev[objectID] || []), {...item, position: `heap-object-${objectID}`}],
+                        [oldFrameID]: prev[oldFrameID].filter(objectItem => objectItem.id !== item.id)}));
                 }
             }
         }
@@ -136,6 +199,15 @@ const VisPage = () => {
                 ])
             }
         }
+
+        if (item.type === "object") {
+            if (draggedFromBank) {
+                setActiveObjects((prev) => [
+                    ...prev.filter((v) => v.id !== item.id),
+                    { id: uuidv4(), name: "", value: "", type: "object"}
+                ])
+            }
+        }
     };
 
     const onInputChange = (id, name, value, position, type) => {
@@ -158,11 +230,18 @@ const VisPage = () => {
             } else if (type == "ret") {
                 setActiveReturns((prev) =>
                     prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
+            } else if (type == "object") {
+                setActiveObjects((prev) => 
+                    prev.map(item => item.id === id ? {...item, name: name, value: value} : item));
             }
         } else if (position.startsWith("stack-frame-")) {
             const frameID = position.replace("stack-frame-", "");
             setFrameItems((prev) => ({...prev, 
                 [frameID]: prev[frameID].map(item => item.id === id ? {...item, name: name, value: value} : item)}))
+        } else if (position.startsWith("heap-object-")) {
+            const objectID = position.replace("heap-object-", "");
+            setObjectItems((prev) => ({...prev,
+                [objectID]: prev[objectID].map(item => item.id === id ? {...item, name: name, value: value} : item)}))
         }
     };
 
@@ -170,6 +249,12 @@ const VisPage = () => {
         if (type === "frame") {
             setFrameItems(prev => {
                 const { [id]: removed, ...rest } = prev;
+                return rest;
+            });
+        };
+        if (type === "object") {
+            setObjectItems(prev => {
+                const { [id]: removed, ...rest} = prev;
                 return rest;
             });
         };
@@ -183,6 +268,10 @@ const VisPage = () => {
             const frameID = position.replace("stack-frame-", "");
             setFrameItems((prev) => ({...prev,
                 [frameID]: prev[frameID].filter(item => item.id !== id)}));
+        } else if (position.startsWith("heap-object-")) {
+            const objectID = position.replace("heap-object-", "");
+            setObjectItems((prev) => ({...prev,
+                [objectID]: prev[objectID].filter(item => item.id !== id)}));
         }
     };
 
@@ -192,6 +281,7 @@ const VisPage = () => {
             'stack': stackItems,
             'heap': heapItems,
             'frames': frameItems,
+            'objects': objectItems,
             'line': lineNumber
         }}))
         console.log(stepData);
@@ -208,6 +298,7 @@ const VisPage = () => {
                     'stack': stackItems,
                     'heap': heapItems,
                     'frames': frameItems, 
+                    'objects': objectItems,
                     'line': lineNumber
                 }};
 
@@ -217,6 +308,7 @@ const VisPage = () => {
                     setStackItems(previousStepData.stack);
                     setHeapItems(previousStepData.heap);
                     setFrameItems(previousStepData.frames);
+                    setObjectItems(previousStepData.objects);
                     setLineNumber(previousStepData.line);
                     setCurrentStep(newStepCount);
                 }
@@ -245,6 +337,7 @@ const VisPage = () => {
                 'stack': stackItems,
                 'heap': heapItems,
                 'frames': frameItems,
+                'objects': objectItems,
                 'line': lineNumber
             }};
 
@@ -254,6 +347,7 @@ const VisPage = () => {
                 setStackItems(nextStepData.stack);
                 setHeapItems(nextStepData.heap);
                 setFrameItems(nextStepData.frames);
+                setObjectItems(nextStepData.objects);
                 setLineNumber(nextStepData.line);
                 setCurrentStep(newStepCount);
             }
@@ -271,11 +365,11 @@ const VisPage = () => {
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
                         <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} onInputChange={onInputChange} onDelete={onDelete} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow />
-                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} activeReturns={activeReturns} onInputChange={onInputChange} />
+                        <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} activeReturns={activeReturns} activeObjects={activeObjects} onInputChange={onInputChange} />
                     </div>
                 </div>
             </div>
