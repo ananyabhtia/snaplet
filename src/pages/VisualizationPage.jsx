@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
 import ButtonBox from "../components/ButtonBox";
 import MemoryWindow from "../components/MemoryWindow";
 import CodeWindow from "../components/CodeWindow";
 import VariablesWindow from "../components/VariablesWindow";
+import VariableButton from "../components/VariableButton";
+import DraggableItem from "../components/DraggableItem";
 
 
 const VisPage = () => {
@@ -30,8 +32,13 @@ const VisPage = () => {
     const [heapItems, setHeapItems] = useState([]);
     const [frameItems, setFrameItems] = useState([]);
     const [objectItems, setObjectItems] = useState([]);
+    const [activeDragItem, setActiveDragItem] = useState(null);
     const pointerSensor = useSensor(PointerSensor);
     const sensors = useSensors(pointerSensor);
+
+    const HandleDragStart = (event) => {
+        setActiveDragItem(event.active.data.current);
+    };
 
     const HandleDragEnd = (event) => {
         const { active, over } = event;
@@ -208,6 +215,7 @@ const VisPage = () => {
                 ])
             }
         }
+        setActiveDragItem(null);
     };
 
     const onInputChange = (id, name, value, position, type) => {
@@ -359,7 +367,7 @@ const VisPage = () => {
     };
 
     return (
-        <DndContext sensors={sensors} onDragEnd={HandleDragEnd}>
+        <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
             <div className="px-8 py-4 h-screen flex flex-col">
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
@@ -373,6 +381,24 @@ const VisPage = () => {
                     </div>
                 </div>
             </div>
+            <DragOverlay
+                dropAnimation={{
+                    duration: 125,
+                    easing: "linear"
+                }}>
+                {activeDragItem ? (
+                    <VariableButton 
+                        id={activeDragItem.id} 
+                        name={activeDragItem.name} 
+                        value={activeDragItem.value} 
+                        type={activeDragItem.type} 
+                        position={activeDragItem.position} 
+                        items={activeDragItem.items || []} 
+                        onInputChange={onInputChange} 
+                        onDelete={onDelete} 
+                    />
+                ) : null}
+            </DragOverlay>
         </DndContext>
     );
 };
