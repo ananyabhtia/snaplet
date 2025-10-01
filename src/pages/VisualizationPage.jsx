@@ -373,7 +373,7 @@ const VisPage = () => {
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
                         <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow />

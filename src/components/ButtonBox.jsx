@@ -1,4 +1,4 @@
-const ButtonBox = ({ handleSave, handlePrev, handleNext, currentStep, totalSteps, lineNumber, setLineNumber }) => {
+const ButtonBox = ({ handleSave, handlePrev, handleNext, currentStep }) => {
     const isButtonDisabled = currentStep === 1;
 
     return (
@@ -7,18 +7,6 @@ const ButtonBox = ({ handleSave, handlePrev, handleNext, currentStep, totalSteps
                 <div onClick={!isButtonDisabled ? handlePrev : undefined} className={`flex flex-row font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm ${isButtonDisabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-purple-300 hover:bg-purple-500 active:bg-purple-800 cursor-pointer'}`}>
                     <i className="fa-solid fa-arrow-left mr-1 sm:mr-2 text-xs sm:text-sm" />
                     <p>prev</p>
-                </div>
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default">
-                    <p>line number</p>
-                    <input type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
-                </div>
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default">
-                    <p>step number</p>
-                    <input value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
-                </div>
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default">
-                    <p>total steps</p>
-                    <input type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                 </div>
                 <div onClick={handleNext} className="flex flex-row bg-purple-300 hover:bg-purple-500 active:bg-purple-800 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-pointer">
                     <p>next</p>

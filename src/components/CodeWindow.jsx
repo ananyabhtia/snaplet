@@ -7,7 +7,7 @@ import "../styles/CodeWindow.css";
 const CodeWindow = () => {
     const [code, setCode] = useState(`# sample program, replace this with your own code!\nbananas = 0\n\ndef transform(n):\n\tglobal bananas\n\tif n % 2 == 0:\n\t\tbananas += n\n\t\treturn n // 2\n\telif n % 3 == 0:\n\t\tbananas -= n\n\t\treturn n * 2\n\telse:\n\t\tbananas += 1\n\t\treturn n + bananas\n\na = 5\nb = transform(a)\nprint(f"final bananas: {bananas}")`);
     return (
-        <div className="w-full border-2 rounded-xl bg-white overflow-hidden flex flex-col mb-2" style={{height: '45vh'}}>
+        <div className="w-full border-2 rounded-xl bg-white overflow-hidden flex flex-col mb-2" style={{height: '48vh'}}>
             <CodeMirror
                 value={code} 
                 onChange={(code) => setCode(code)}
