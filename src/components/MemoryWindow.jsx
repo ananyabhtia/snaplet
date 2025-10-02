@@ -1,6 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import VariableButton from "./VariableButton";
 import DraggableItem from "./DraggableItem";
+import { v4 as uuidv4 } from "uuid";
 
 const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, onDelete}) => {
     const { setNodeRef } = useDroppable({ id });
@@ -29,19 +30,19 @@ const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, o
 
 const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectItems, onInputChange, onDelete, totalSteps, lineNumber, setLineNumber, currentStep }) => {
     return (
-        <div className="flex flex-col w-full border-2 rounded-xl bg-gray-200" style={{height: '82vh'}}>
+        <div id="capture" className="flex flex-col w-full border-2 rounded-xl bg-gray-200" style={{height: '82vh'}}>
             <div className="flex flex-row items-center justify-center mt-2">
                 <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default mr-2">
                     <p>line number</p>
-                    <input type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
+                    <input id={uuidv4()} type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
                 </div>
                 <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default mr-2">
                     <p>step number</p>
-                    <input value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
+                    <input id={uuidv4()} value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                 </div>
                 <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default">
                     <p>total steps</p>
-                    <input type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
+                    <input id={uuidv4()} type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                 </div>
             </div>
             <div className="flex flex-row w-full rounded-xl" style={{height: '82vh'}}>

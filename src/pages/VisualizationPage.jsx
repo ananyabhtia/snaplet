@@ -7,7 +7,8 @@ import MemoryWindow from "../components/MemoryWindow";
 import CodeWindow from "../components/CodeWindow";
 import VariablesWindow from "../components/VariablesWindow";
 import VariableButton from "../components/VariableButton";
-import DraggableItem from "../components/DraggableItem";
+import { jsPDF } from "jspdf";
+import { toPng } from "html-to-image";
 
 
 const VisPage = () => {
@@ -292,7 +293,6 @@ const VisPage = () => {
             'objects': objectItems,
             'line': lineNumber
         }}))
-        console.log(stepData);
     };
 
     const handlePreviousButton = () => {
@@ -320,8 +320,6 @@ const VisPage = () => {
                     setLineNumber(previousStepData.line);
                     setCurrentStep(newStepCount);
                 }
-                console.log(currentStep);
-                console.log(previousStepData);
                 return updatedStepData;
             });
         }
@@ -334,10 +332,6 @@ const VisPage = () => {
             setTotalSteps((prev) => prev + 1);
             setLineNumber("");
         };
-        console.log(currentStep);
-        console.log(newStepCount);
-        console.log(stepData[newStepCount]);
-        console.log(stepData);
 
         setStepData((prev) => {
             const updatedStepData = {...prev, [currentStep]: {
@@ -359,12 +353,50 @@ const VisPage = () => {
                 setLineNumber(nextStepData.line);
                 setCurrentStep(newStepCount);
             }
-            console.log(currentStep);
-            console.log(nextStepData);
-            console.log(updatedStepData);
             return updatedStepData;
         })
     };
+
+    const handlePDF = async () => {
+
+        const doc = new jsPDF({
+            orientation: "portrait",
+            unit: "in",
+            format: [8.5, 11]
+        });
+        
+        handleSaveButton();
+
+        setGlobalsItems(stepData[1].globals);
+        setStackItems(stepData[1].stack);
+        setHeapItems(stepData[1].heap);
+        setFrameItems(stepData[1].frames);
+        setObjectItems(stepData[1].objects);
+        setLineNumber(stepData[1].line);
+        setCurrentStep(1);
+
+        const nextButton = document.getElementById("next");
+        for (let i = 1; i <= totalSteps; i++) {
+            let node = document.getElementById('capture');
+            let dataUrl = await toPng(node);
+            let img = document.createElement('img');
+
+            img.src = dataUrl;
+
+            const imgProps = doc.getImageProperties(dataUrl);
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            doc.addImage(dataUrl, "PNG", 0.5, 0.5, pdfWidth / 1.15, imgHeight / 1.15);
+
+            if (i < totalSteps) {
+                doc.addPage();
+                nextButton.click();
+            }
+        }
+
+        doc.save("diagram.pdf");
+    }
 
     return (
         <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
@@ -372,7 +404,7 @@ const VisPage = () => {
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
                     <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
-                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
+                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handlePDF={handlePDF} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">

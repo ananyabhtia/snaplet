@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 import DraggableItem from "./DraggableItem";
+import { v4 as uuidv4 } from "uuid";
 
 const VariableButton = ({ id, name, value, type, position, items, onInputChange, onDelete }) => {
 
@@ -9,9 +10,9 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
             return (
                 <div className="text-sm flex flex-row items-center bg-pink-300 hover:bg-pink-400 font-bold py-2 px-4 rounded-xl border-2 border-pink-400 h-10 mt-2 ml-2 mr-2 mb-1 w-95/100 z-1000 cursor-move">
                     {/* <p>{id}</p> */}
-                    <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-2/6 rounded-full pl-2" value={name} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
+                    <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-2/6 rounded-full pl-2" value={name || ""} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
                     <p>=</p>
-                    <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-3/6 rounded-full pl-2" value={value} onChange={e => onInputChange(id, name, e.target.value, position, type)}></input>
+                    <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-3/6 rounded-full pl-2" value={value || ""} onChange={e => onInputChange(id, name, e.target.value, position, type)}></input>
                     {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
                 </div>
             );
@@ -21,7 +22,7 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
                 <div className="text-sm flex flex-col bg-blue-300 hover:bg-blue-400 font-bold py-2 px-4 rounded-xl border-2 border-blue-400 mt-2 ml-2 mr-2 mb-1 w-95/100 cursor-move">
                     {/* <p>{id}</p> */}
                     <div className="flex flex-row items-center">
-                        <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-4/5 rounded-full pl-2" value={name} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
+                        <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-4/5 rounded-full pl-2" value={name || ""} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
                         {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
                     </div>
                     <div ref={setFrameNodeRef} className={`w-full min-h-10 h-auto bg-white border-blue-400 border-2 rounded-xl mt-2 ${isOverFrame ? 'ring-4 ring-blue-700' : ''}`}>
@@ -37,7 +38,7 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
             return (
                 <div className="text-sm flex flex-row font-bold items-center bg-green-200 hover:bg-green-300 py-2 px-4 rounded-xl border-2 border-green-300 h-10 mt-2 ml-2 mr-2 mb-1 w-95/100 z-1000 cursor-move">
                     <p>return</p>
-                    <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-1/2 rounded-full pl-2" value={value} onChange={e => onInputChange(id, name, e.target.value, position, type)} />
+                    <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-1/2 rounded-full pl-2" value={value || ""} onChange={e => onInputChange(id, name, e.target.value, position, type)} />
                     {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
                 </div>
             )
@@ -48,10 +49,10 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
                     {/* <p>{id}</p> */}
                     <div className="flex flex-row items-center">
                         <div className="flex flex-row items-center">
-                            <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-2/5 rounded-full pl-2" value={name} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
+                            <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-2/5 rounded-full pl-2" value={name || ""} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
                         </div>
                         <div className="flex flex-row items-center ml-auto">
-                            <input onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-full rounded-full pl-2" value={value} onChange={e => onInputChange(id, name, e.target.value, position, type)}></input>
+                            <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-full rounded-full pl-2" value={value || ""} onChange={e => onInputChange(id, name, e.target.value, position, type)}></input>
                             {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
                         </div>
                     </div>
