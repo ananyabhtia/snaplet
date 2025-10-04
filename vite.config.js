@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: "/summer-2025/",
+  base: "/snaplet/",
 })
