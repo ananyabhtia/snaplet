@@ -14,7 +14,7 @@ const ButtonBox = ({ handleSave, handlePrev, handleNext, handleAdd, handlePDF, c
                     <i className="fa-solid fa-arrow-right ml-1 sm:ml-2 text-xs sm:text-sm" />
                 </div>
                 <div id="next" onClick={handleAdd} className="flex flex-row bg-purple-300 hover:bg-purple-500 active:bg-purple-800 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-pointer">
-                    <p>add</p>
+                    <p>add step</p>
                     <i className="fa-solid fa-plus ml-1 sm:ml-2 text-xs sm:text-sm" />
                 </div>
             </div>
