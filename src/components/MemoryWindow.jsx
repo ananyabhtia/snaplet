@@ -7,7 +7,7 @@ const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, o
     const { setNodeRef } = useDroppable({ id });
 
     return (
-        <div ref={setNodeRef} className="border-2 rounded-xl flex-1 m-2 bg-white overflow-y-auto overflow-x-hidden flex flex-col" style={{height: 'calc(100% - 1rem)'}}>
+        <div ref={setNodeRef} className="border-2 rounded-xl flex-1 m-2 bg-white overflow-y-auto overflow-x-hidden flex flex-col" style={{height: '73.4vh', maxHeight: '73.4vh'}}>
             <h1 className="flex-shrink-0">{label}</h1>
                 {items.map((item) => {
                     let currItems = [];
@@ -45,7 +45,7 @@ const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectIt
                     <input id={uuidv4()} type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                 </div>
             </div>
-            <div className="flex flex-row w-full rounded-xl" style={{height: '82vh'}}>
+            <div className="flex flex-row w-full rounded-xl" style={{height: '72vh', maxHeight: '72vh'}}>
                 <MemorySlot id='globals-area' label="globals" items={globalsItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} />
                 <MemorySlot id='stack-area' label="stack" items={stackItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} />
                 <MemorySlot id='heap-area' label="heap" items={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} />
