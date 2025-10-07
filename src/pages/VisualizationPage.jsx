@@ -284,16 +284,23 @@ const VisPage = () => {
         }
     };
 
-    const handleSaveButton = () => {
-        setStepData((prev) => ({...prev, [currentStep]: {
-            'globals': globalsItems,
-            'stack': stackItems,
-            'heap': heapItems,
-            'frames': frameItems,
-            'objects': objectItems,
-            'line': lineNumber
-        }}))
-    };
+    const handleSaveButton = () => new Promise((resolve) => {
+    setStepData((prev) => {
+        const newData = {
+        ...prev,
+        [currentStep]: {
+            globals: globalsItems,
+            stack: stackItems,
+            heap: heapItems,
+            frames: frameItems,
+            objects: objectItems,
+            line: lineNumber,
+        },
+        };
+        resolve(newData);
+        return newData;
+    });
+    });
 
     const handlePreviousButton = () => {
         if (currentStep > 1) {
@@ -395,14 +402,26 @@ const VisPage = () => {
             format: [8.5, 11]
         });
         
-        handleSaveButton();
+        const newStepData = {
+            ...stepData,
+            [currentStep]: {
+            globals: globalsItems,
+            stack: stackItems,
+            heap: heapItems,
+            frames: frameItems,
+            objects: objectItems,
+            line: lineNumber,
+            },
+        };
 
-        setGlobalsItems(stepData[1].globals);
-        setStackItems(stepData[1].stack);
-        setHeapItems(stepData[1].heap);
-        setFrameItems(stepData[1].frames);
-        setObjectItems(stepData[1].objects);
-        setLineNumber(stepData[1].line);
+        setStepData(newStepData);
+
+        setGlobalsItems(newStepData[1].globals);
+        setStackItems(newStepData[1].stack);
+        setHeapItems(newStepData[1].heap);
+        setFrameItems(newStepData[1].frames);
+        setObjectItems(newStepData[1].objects);
+        setLineNumber(newStepData[1].line);
         setCurrentStep(1);
 
         const nextButton = document.getElementById("next");
