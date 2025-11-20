@@ -3,7 +3,7 @@ import DraggableItem from "./DraggableItem";
 
 const VariablesWindow = ({ variableItems, activeFrames, activeReturns, activeObjects, onInputChange }) => {
     return (
-        <div className="flex flex-col w-full border-2 rounded-xl bg-gray-300 text-xs" style={{height: '40vh'}}>
+        <div id="variables-bank" className="flex flex-col w-full border-2 rounded-xl bg-gray-300 text-xs" style={{height: '40vh'}}>
             {variableItems.map((item) => (
                 <DraggableItem key={item.id} id={item.id}>
                     <VariableButton key={item.id} id={item.id} name={item.name} value={item.value} type="variable" position="bank" onInputChange={onInputChange} />
