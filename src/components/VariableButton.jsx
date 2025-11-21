@@ -2,6 +2,17 @@ import { useDroppable } from "@dnd-kit/core";
 import DraggableItem from "./DraggableItem";
 import { v4 as uuidv4 } from "uuid";
 
+// VariableButton : component representing variables, stack frames, heap objects, and return blocks 
+//                  as they move around in computer memory during program execution at the highest level
+//  props: { id, name, value, type, position, items, onInputChange, onDelete }
+//      id: uuid for variable
+//      name: text input box 1 in variable
+//      value: text input box 2 in variable
+//      type: type of variable button (variable || stack frame || heap object || return)
+//      position: current position of VariableButton within visualization page (bank || globals || stack ||
+//                heap || frame || object)
+//      items: if type is stack or object, can contain other VariableButton objects inside it
+//      onInputChange, onDelete: handlers
 const VariableButton = ({ id, name, value, type, position, items, onInputChange, onDelete }) => {
 
     switch (type) {

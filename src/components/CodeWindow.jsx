@@ -4,6 +4,8 @@ import { python } from '@codemirror/lang-python';
 import { noctisLilac } from "@uiw/codemirror-theme-noctis-lilac";
 import "../styles/CodeWindow.css";
 
+// CodeWindow : component styled to look like a code editor with Python syntax highlighting and line numbers
+//              for users to paste their code into and refer to while diagramming, uses CodeMirror package        
 const CodeWindow = () => {
     const [code, setCode] = useState(`# sample program, replace this with your own code!\nbananas = 0\n\ndef transform(n):\n\tglobal bananas\n\tif n % 2 == 0:\n\t\tbananas += n\n\t\treturn n // 2\n\telif n % 3 == 0:\n\t\tbananas -= n\n\t\treturn n * 2\n\telse:\n\t\tbananas += 1\n\t\treturn n + bananas\n\na = 5\nb = transform(a)\nprint(f"final bananas: {bananas}")`);
     return (

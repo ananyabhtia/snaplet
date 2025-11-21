@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Header containing Snaplet and McCormick School logos
 const Header = () => {
     const [diagramName, setDiagramName] = useState("untitled-diagram");
 

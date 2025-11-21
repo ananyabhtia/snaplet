@@ -1,3 +1,5 @@
+
+// ButtonBox : component containing previous, next, add step, and export to PDF buttons
 const ButtonBox = ({ handleSave, handlePrev, handleNext, handleAdd, handlePDF, currentStep, totalSteps }) => {
     const isPrevButtonDisabled = currentStep === 1;
     const isNextButtonDisabled = totalSteps === currentStep;

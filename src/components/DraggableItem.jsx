@@ -1,5 +1,7 @@
 import { useDraggable } from "@dnd-kit/core"
 
+// DraggableItem : component wrapper placed around all VariableButton items to make them draggable
+//                 using dnd-kit's useDraggable function
 const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id,

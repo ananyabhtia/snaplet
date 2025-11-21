@@ -10,30 +10,65 @@ import VariableButton from "../components/VariableButton";
 import { jsPDF } from "jspdf";
 import { toPng } from "html-to-image";
 
+// Main program tracing interface page
+// Contains Header, CodeWindow, MemoryWindow, VariablesWindow components 
+const VisPage = () => { 
 
-const VisPage = () => {
+    //  currentStep (int): current step of the diagram
     const [currentStep, setCurrentStep] = useState(1);
+
+    //  totalSteps (int): total steps in the diagram so far
     const [totalSteps, setTotalSteps] = useState(1);
+
+    //  lineNumber (string): line number that corresponds to the current step
     const [lineNumber, setLineNumber] = useState("");
+
+    //  stepData (object): object where keys are step numbers and values are
     const [stepData, setStepData] = useState({});
+
+    //  variableItems (array): to render new variable objects inside the variable window  
     const [variableItems, setVariableItems] = useState([
         { id: uuidv4(), name: "", value: "", type: "variable" }
     ]);
+
+    //  activeFrames (array): to render new frame objects inside the variable window
     const [activeFrames, setActiveFrames] = useState([
         { id: uuidv4(), name: "", value: "", type: "frame" }
     ]);
+
+    //  activeReturns (array): to render new return objects inside the variable window
     const [activeReturns, setActiveReturns] = useState([
         {id: uuidv4(), name: "", value: "", type: "ret"}
     ]);
+
+    //  activeObjects (array): to render new heap objects inside the variable window
     const [activeObjects, setActiveObjects] = useState([
         {id: uuidv4(), name: "", value: "", type: "object"}
     ]);
+
+    //  globalsItems (array): array containing the variable/return/stack/heap objects in the globals 
+    //  section for the current step
     const [globalsItems, setGlobalsItems] = useState([]);
+
+    //  stackItems (array): array containing the variable/return/stack/heap objects in the stack section 
+    //  for the current step
     const [stackItems, setStackItems] = useState([]);
+
+    //  heapItems (array): array containing the variable/return/stack/heap objects in the heap section 
+    //  for the current step
     const [heapItems, setHeapItems] = useState([]);
+
+    //  frameItems(array): array of objects where keys are frameIDs and values are all variable/return/
+    //  stack/heap objects in all stack frames for the current step
     const [frameItems, setFrameItems] = useState([]);
+
+    //  objectItems(array): array of objects where keys are objectIDs and values are all variable/return/
+    //  stack/heap objects in all heapObjects for the current step
     const [objectItems, setObjectItems] = useState([]);
+
+    // activeDragItem: state to store item currently being dragged
     const [activeDragItem, setActiveDragItem] = useState(null);
+
     const pointerSensor = useSensor(PointerSensor);
     const sensors = useSensors(pointerSensor);
 
@@ -41,6 +76,12 @@ const VisPage = () => {
         setActiveDragItem(event.active.data.current);
     };
 
+    // HandleDragEnd(event) : function to handle drag end for active drag item
+    //  1. checks drag item's source (bank || globals || stack || heap || frame || object)
+    //  2. adds the drag item to the state variable corresponding to its destination
+    //  3. removes the drag item from the state variable corresponding to its source
+    //  4. if the drag item's source was the bank, resets the corresponding state to render a new object
+    //     of that type in the bank
     const HandleDragEnd = (event) => {
         const { active, over } = event;
 
@@ -219,6 +260,8 @@ const VisPage = () => {
         setActiveDragItem(null);
     };
 
+    // onInputChange(id, name, value, position, type) : 
+    //  function to update state variables when the text inputs of drag items are modified
     const onInputChange = (id, name, value, position, type) => {
         if (position === "globals") {
             setGlobalsItems((prev) => 
@@ -254,6 +297,8 @@ const VisPage = () => {
         }
     };
 
+    // onDelete(id, type, position) :
+    //  function to remove object from corresponding state variable when it is deleted from UI
     const onDelete = (id, type, position) => {
         if (type === "frame") {
             setFrameItems(prev => {
@@ -284,6 +329,8 @@ const VisPage = () => {
         }
     };
 
+    // handleSaveButton() :
+    //  function to save current step's data in stepData state variable
     const handleSaveButton = () => new Promise((resolve) => {
     setStepData((prev) => {
         const newData = {
@@ -302,6 +349,11 @@ const VisPage = () => {
     });
     });
 
+    // handlePreviousButton() :
+    //  function to handle previous button click
+    //  1. sets currentStep to currentStep - 1
+    //  2. sets globalsItems, stackItems, heapItems, frameItems, objectItems, lineNumber to 
+    //     saved values from previous step's stepData
     const handlePreviousButton = () => {
         if (currentStep > 1) {
             const newStepCount = currentStep - 1;
@@ -332,6 +384,11 @@ const VisPage = () => {
         }
     };
 
+    // handleNextButton() :
+    //  function to handle next button click
+    //  1. sets currentStep to currentStep + 1
+    //  2. sets globalsItems, stackItems, heapItems, frameItems, objectItems, lineNumber to 
+    //     saved values from next step's stepData
     const handleNextButton = () => {
         if (currentStep < totalSteps) {
             const newStepCount = currentStep + 1;
@@ -362,6 +419,12 @@ const VisPage = () => {
         }
     }
 
+    // handleAddButton() :
+    //  function to add a new step
+    //  1. sets currentStep to currentStep + 1
+    //  2. increments totalSteps
+    //  3. sets globalsItems, stackItems, heapItems, frameItems, objectItems, lineNumber to 
+    //     saved values from previous step's stepData
     const handleAddButton = () => {
         const newStepCount = currentStep + 1;
         setCurrentStep((prev) => prev + 1);
@@ -394,6 +457,8 @@ const VisPage = () => {
         })
     };
 
+    // handlePDF() : function to create and download snapshots of all steps in PDF format
+    //  iterates over all steps, takes an image of the memory window and adds to document
     const handlePDF = async () => {
 
         const doc = new jsPDF({
@@ -447,6 +512,7 @@ const VisPage = () => {
         doc.save("diagram.pdf");
     }
 
+    // Visualization page JSX code, also contains dnd-kit context code to enable drag-and-drop
     return (
         <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
             <div className="px-8 pb-4 pt-2 h-screen flex flex-col">

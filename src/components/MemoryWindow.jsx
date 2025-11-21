@@ -3,6 +3,16 @@ import VariableButton from "./VariableButton";
 import DraggableItem from "./DraggableItem";
 import { v4 as uuidv4 } from "uuid";
 
+// MemorySlot : component representing a segment of computer memory (globals || stack || heap),
+//              all VariableButton types can be dragged into here
+//  props: {id, label, items, frameItems, objectItems, onInputChange, onDelete}
+//      id: uuid for this slot, used to make this a unique droppable zone for dnd-kit
+//      label: memory slot title (globals || stack || heap)
+//      items: state variable containing all VariableButton items currently placed in this memory slot 
+//             (globalsItems || stackItems || heapItems)
+//      frameItems: all VariableButton items in all stack frames for the current step
+//      objectItems: all VariableButton items in all heap objects for the current step
+//      onInputChange, onDelete: handlers
 const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, onDelete}) => {
     const { setNodeRef } = useDroppable({ id });
 
@@ -28,6 +38,10 @@ const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, o
     );
 };
 
+// MemoryWindow : component consisting of three MemorySlot components to represent a computer's memory,
+//                primary droppable zone for VariableButton items,
+//                also displays currentStep and totalSteps,
+//                contains text input for user to enter lineNumber, saves this to lineNumber state variable
 const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectItems, onInputChange, onDelete, totalSteps, lineNumber, setLineNumber, currentStep }) => {
     return (
         <div id="capture" className="flex flex-col w-full border-2 rounded-xl bg-gray-200" style={{height: '82vh'}}>

@@ -1,6 +1,17 @@
 import VariableButton from "./VariableButton";
 import DraggableItem from "./DraggableItem";
 
+// VariablesWindow : the initial bank from which all variableButton types can be dragged
+//  props: { variableItems, activeFrames, activeReturns, activeObjects, onInputChange }
+//      variableItems: state variable that renders a new variable type VariableButton every time one is 
+//                      dragged out of the VariablesWindow
+//      activeFrames: state variable that renders a new frame type VariableButton every time one is 
+//                      dragged out of the VariablesWindow
+//      activeObjects: state variable that renders a new object type VariableButton every time one is 
+//                      dragged out of the VariablesWindow
+//      activeReturns: state variable that renders a new return type VariableButton every time one is 
+//                      dragged out of the VariablesWindow
+//      onInputChange: handler
 const VariablesWindow = ({ variableItems, activeFrames, activeReturns, activeObjects, onInputChange }) => {
     return (
         <div id="variables-bank" className="flex flex-col w-full border-2 rounded-xl bg-gray-300 text-xs" style={{height: '40vh'}}>
