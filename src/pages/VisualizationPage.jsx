@@ -8,7 +8,7 @@ import CodeWindow from "../components/CodeWindow";
 import VariablesWindow from "../components/VariablesWindow";
 import VariableButton from "../components/VariableButton";
 import { jsPDF } from "jspdf";
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 
 // Main program tracing interface page
 // Contains Header, CodeWindow, MemoryWindow, VariablesWindow components 
@@ -492,7 +492,7 @@ const VisPage = () => {
         const nextButton = document.getElementById("next");
         for (let i = 1; i <= totalSteps; i++) {
             let node = document.getElementById('capture');
-            let dataUrl = await toPng(node);
+            let dataUrl = await toJpeg(node, {quality: 0.8});
             let img = document.createElement('img');
 
             img.src = dataUrl;
@@ -501,7 +501,7 @@ const VisPage = () => {
             const pdfWidth = doc.internal.pageSize.getWidth();
             const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-            doc.addImage(dataUrl, "PNG", 0.5, 0.5, pdfWidth / 1.15, imgHeight / 1.15);
+            doc.addImage(dataUrl, "JPEG", 0.5, 0.5, pdfWidth / 1.15, imgHeight / 1.15);
 
             if (i < totalSteps) {
                 doc.addPage();
