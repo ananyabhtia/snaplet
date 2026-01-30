@@ -14,6 +14,9 @@ import { toJpeg } from "html-to-image";
 // Contains Header, CodeWindow, MemoryWindow, VariablesWindow components 
 const VisPage = () => { 
 
+    // diagramTitle (string): diagram title
+    const [diagramTitle, setDiagramTitle] = useState("untitled-diagram");
+
     //  currentStep (int): current step of the diagram
     const [currentStep, setCurrentStep] = useState(1);
 
@@ -492,7 +495,13 @@ const VisPage = () => {
         const nextButton = document.getElementById("next");
         for (let i = 1; i <= totalSteps; i++) {
             let node = document.getElementById('capture');
-            let dataUrl = await toJpeg(node, {quality: 0.8});
+            let dataUrl = await toJpeg(node, {quality: 0.8, 
+                filter: (domNode) => {
+                    if (domNode.classList?.contains("exclude-from-pdf")) {
+                return false;
+            }
+            return true;
+        }});
             let img = document.createElement('img');
 
             img.src = dataUrl;
@@ -515,11 +524,11 @@ const VisPage = () => {
     // Visualization page JSX code, also contains dnd-kit context code to enable drag-and-drop
     return (
         <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
-            <div className="px-8 pb-4 pt-2 h-screen flex flex-col">
+            <div className="px-8 pb-4 pt-2 h-screen flex flex-col bg-white">
                 <Header />
-                <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl">
-                    <div className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2">
-                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handleAdd={handleAddButton} handlePDF={handlePDF} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} />
+                <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl bg-white">
+                    <div id="capture" className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2 bg-white">
+                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handleAdd={handleAddButton} handlePDF={handlePDF} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} diagramTItle={diagramTitle} setDiagramTitle={setDiagramTitle} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
