@@ -72,6 +72,9 @@ const VisPage = () => {
     // activeDragItem: state to store item currently being dragged
     const [activeDragItem, setActiveDragItem] = useState(null);
 
+    // // uploadedFile: state to store file uploaded for import functionalit
+    // const [uploadedFile, setUploadedFile] = useState(null);
+
     const pointerSensor = useSensor(PointerSensor);
     const sensors = useSensors(pointerSensor);
 
@@ -460,6 +463,57 @@ const VisPage = () => {
         })
     };
 
+    // handleSnap() : function to download the diagram as a custom .snap filetype
+    const handleSnap = () => {
+        const newStepData = {
+            ...stepData,
+            [currentStep]: {
+            globals: globalsItems,
+            stack: stackItems,
+            heap: heapItems,
+            frames: frameItems,
+            objects: objectItems,
+            line: lineNumber,
+            },
+        };
+
+        setStepData(newStepData);
+
+        setGlobalsItems(newStepData[1].globals);
+        setStackItems(newStepData[1].stack);
+        setHeapItems(newStepData[1].heap);
+        setFrameItems(newStepData[1].frames);
+        setObjectItems(newStepData[1].objects);
+        setLineNumber(newStepData[1].line);
+        setCurrentStep(1);
+
+        const snapData = {
+            metadata: {
+                title: diagramTitle,
+                snapletVersion: 1,
+                totalSteps: totalSteps},
+            content: newStepData
+        };
+
+        const stepJSON = JSON.stringify(snapData, null, 2);
+        const blob = new Blob([stepJSON], {type: 'application/json'});
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = `${diagramTitle.replace(/\s+/g, '_')}.snap`;
+
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        console.log('meow');
+    }
+
+    
+
     // handlePDF() : function to create and download snapshots of all steps in PDF format
     //  iterates over all steps, takes an image of the memory window and adds to document
     const handlePDF = async () => {
@@ -521,6 +575,36 @@ const VisPage = () => {
         doc.save("diagram.pdf");
     }
 
+    // handleImport(event) : function to handle file upload for import functionality
+    const handleImport = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        console.log("Importing file:", file);
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const content = e.target.result;
+                const data = JSON.parse(content);
+                setStepData(data.content);
+                setDiagramTitle(data.metadata.title);
+                setTotalSteps(data.metadata.totalSteps);
+                setGlobalsItems(data.content[1].globals);
+                setStackItems(data.content[1].stack);
+                setHeapItems(data.content[1].heap);
+                setFrameItems(data.content[1].frames);
+                setObjectItems(data.content[1].objects);
+                setLineNumber(data.content[1].line);
+                setCurrentStep(1);
+            } catch (error) {
+                console.error("error parsing file:", error);
+            }
+        }
+        reader.readAsText(file);
+    };
+
+
     // Visualization page JSX code, also contains dnd-kit context code to enable drag-and-drop
     return (
         <DndContext sensors={sensors} onDragStart={HandleDragStart} onDragEnd={HandleDragEnd}>
@@ -528,7 +612,7 @@ const VisPage = () => {
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl bg-white">
                     <div id="capture" className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2 bg-white">
-                        <ButtonBox handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handleAdd={handleAddButton} handlePDF={handlePDF} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} diagramTItle={diagramTitle} setDiagramTitle={setDiagramTitle} />
+                        <ButtonBox handleImport={handleImport} handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handleAdd={handleAddButton} handlePDF={handlePDF} handleSnap={handleSnap} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} diagramTitle={diagramTitle} setDiagramTitle={setDiagramTitle} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
