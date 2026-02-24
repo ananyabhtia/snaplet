@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
@@ -25,9 +25,6 @@ const VisPage = () => {
 
     //  lineNumber (string): line number that corresponds to the current step
     const [lineNumber, setLineNumber] = useState("");
-
-    //  stepData (object): object where keys are step numbers and values are
-    const [stepData, setStepData] = useState({});
 
     //  variableItems (array): to render new variable objects inside the variable window  
     const [variableItems, setVariableItems] = useState([
@@ -71,6 +68,30 @@ const VisPage = () => {
 
     // activeDragItem: state to store item currently being dragged
     const [activeDragItem, setActiveDragItem] = useState(null);
+
+    //  stepData (object): object where keys are step numbers and values are
+    const [stepData, setStepData] = useState(() => {
+        const savedData = localStorage.getItem("stepData");
+        if (savedData) {
+            try {
+                const parsedData = JSON.parse(savedData);
+                setDiagramTitle(parsedData.metadata.title);
+                setTotalSteps(parsedData.metadata.totalSteps);
+                setGlobalsItems(parsedData.content[1].globals);
+                setStackItems(parsedData.content[1].stack);
+                setHeapItems(parsedData.content[1].heap);
+                setFrameItems(parsedData.content[1].frames);
+                setObjectItems(parsedData.content[1].objects);
+                setLineNumber(parsedData.content[1].line);
+                setCurrentStep(1);
+                return parsedData.content;
+            } catch (error) {
+                console.error("error parsing saved data from local storage:", error);
+            }   
+        } else {
+            return {};
+        }
+    });
 
     // // uploadedFile: state to store file uploaded for import functionalit
     // const [uploadedFile, setUploadedFile] = useState(null);
@@ -335,6 +356,31 @@ const VisPage = () => {
         }
     };
 
+    // useEffect to save changes to local storage on every change to memory state variables, diagram title, line number, or total steps
+    useEffect(() => {
+        const newStepData = {
+            ...stepData,
+            [currentStep]: {
+            globals: globalsItems,
+            stack: stackItems,
+            heap: heapItems,
+            frames: frameItems,
+            objects: objectItems,
+            line: lineNumber,
+            },
+        };
+
+        const snapData = {
+            metadata: {
+                title: diagramTitle,
+                snapletVersion: 1,
+                totalSteps: totalSteps},
+            content: newStepData
+        };
+
+        localStorage.setItem("stepData", JSON.stringify(snapData));
+    }, [globalsItems, stackItems, heapItems, frameItems, objectItems, diagramTitle, totalSteps, lineNumber]);
+
     // handleSaveButton() :
     //  function to save current step's data in stepData state variable
     const handleSaveButton = () => new Promise((resolve) => {
@@ -509,7 +555,7 @@ const VisPage = () => {
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
 
-        console.log('meow');
+        localStorage.clear();
     }
 
     
@@ -580,7 +626,7 @@ const VisPage = () => {
         const file = event.target.files[0];
         if (!file) return;
 
-        console.log("Importing file:", file);
+        console.log("importing file:", file);
 
         const reader = new FileReader();
         reader.onload = (e) => {
