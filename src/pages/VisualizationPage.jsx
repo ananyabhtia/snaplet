@@ -93,6 +93,15 @@ const VisPage = () => {
         }
     });
 
+    // code that lives in the codeWindow component, initializing with a default example code snippet
+    const [code, setCode] = useState(() => {
+        const savedCode = JSON.parse(localStorage.getItem("stepData"))?.code;
+        if (savedCode) {
+            return savedCode;
+        }
+        return `# sample program, replace this with your own code!\nbananas = 0\n\ndef transform(n):\n\tglobal bananas\n\tif n % 2 == 0:\n\t\tbananas += n\n\t\treturn n // 2\n\telif n % 3 == 0:\n\t\tbananas -= n\n\t\treturn n * 2\n\telse:\n\t\tbananas += 1\n\t\treturn n + bananas\n\na = 5\nb = transform(a)\nprint(f"final bananas: {bananas}")`;
+    });
+
     // // uploadedFile: state to store file uploaded for import functionalit
     // const [uploadedFile, setUploadedFile] = useState(null);
 
@@ -356,7 +365,7 @@ const VisPage = () => {
         }
     };
 
-    // useEffect to save changes to local storage on every change to memory state variables, diagram title, line number, or total steps
+    // useEffect to save changes to local storage on every change to memory state variables, diagram title, line number, codeWindow, or total steps
     useEffect(() => {
         const newStepData = {
             ...stepData,
@@ -375,11 +384,12 @@ const VisPage = () => {
                 title: diagramTitle,
                 snapletVersion: 1,
                 totalSteps: totalSteps},
-            content: newStepData
+            content: newStepData,
+            code: code
         };
 
         localStorage.setItem("stepData", JSON.stringify(snapData));
-    }, [globalsItems, stackItems, heapItems, frameItems, objectItems, diagramTitle, totalSteps, lineNumber]);
+    }, [globalsItems, stackItems, heapItems, frameItems, objectItems, diagramTitle, totalSteps, lineNumber, code]);
 
     // handleSaveButton() :
     //  function to save current step's data in stepData state variable
@@ -538,7 +548,8 @@ const VisPage = () => {
                 title: diagramTitle,
                 snapletVersion: 1,
                 totalSteps: totalSteps},
-            content: newStepData
+            content: newStepData,
+            code: code
         };
 
         const stepJSON = JSON.stringify(snapData, null, 2);
@@ -617,7 +628,7 @@ const VisPage = () => {
                 nextButton.click();
             }
         }
-
+ym
         doc.save("diagram.pdf");
     }
 
@@ -625,8 +636,6 @@ const VisPage = () => {
     const handleImport = (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
-        console.log("importing file:", file);
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -662,7 +671,7 @@ const VisPage = () => {
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
-                        <CodeWindow />
+                        <CodeWindow code={code} setCode={setCode} />
                         <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} activeReturns={activeReturns} activeObjects={activeObjects} onInputChange={onInputChange} />
                     </div>
                 </div>
