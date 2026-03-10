@@ -519,6 +519,24 @@ const VisPage = () => {
         })
     };
 
+    // handleClearAll() : function to clear all data and reset diagram
+    const handleClearAll = () => {
+        setDiagramTitle("untitled diagram");
+        setLineNumber();
+        setTotalSteps(1);
+        setCurrentStep(1);
+        setGlobalsItems();
+        setGlobalsItems([]);
+        setStackItems([]);
+        setHeapItems([]);
+        setFrameItems([]);
+        setObjectItems([]);
+        setStepData({});
+        setCode(`# sample program, replace this with your own code!\nbananas = 0\n\ndef transform(n):\n\tglobal bananas\n\tif n % 2 == 0:\n\t\tbananas += n\n\t\treturn n // 2\n\telif n % 3 == 0:\n\t\tbananas -= n\n\t\treturn n * 2\n\telse:\n\t\tbananas += 1\n\t\treturn n + bananas\n\na = 5\nb = transform(a)\nprint(f"final bananas: {bananas}")`)
+
+        localStorage.clear();
+    }
+
     // handleSnap() : function to download the diagram as a custom .snap filetype
     const handleSnap = () => {
         const newStepData = {
@@ -565,8 +583,6 @@ const VisPage = () => {
 
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-
-        localStorage.clear();
     }
 
     
@@ -628,7 +644,7 @@ const VisPage = () => {
                 nextButton.click();
             }
         }
-ym
+
         doc.save("diagram.pdf");
     }
 
@@ -659,6 +675,28 @@ ym
         reader.readAsText(file);
     };
 
+    // useEffect to remap CTRL+S and CTRL+O to my export and import .snap functions
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") return;
+
+            const isMod = event.ctrlKey || event.metaKey;
+
+            switch (true) {
+                case (isMod && event.key === 's'):
+                    event.preventDefault();
+                    handleSnap();
+                    break;
+                case (isMod && event.key === 'o'):
+                    event.preventDefault();
+                    document.getElementById("file-input")?.click();
+                    break;
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [handleSnap]);
 
     // Visualization page JSX code, also contains dnd-kit context code to enable drag-and-drop
     return (
@@ -667,7 +705,21 @@ ym
                 <Header />
                 <div className="flex flex-row w-full flex-1 border-pink-500 rounded-xl bg-white">
                     <div id="capture" className="flex flex-col w-2/3 h-full border-green-600 rounded-xl mr-2 bg-white">
-                        <ButtonBox handleImport={handleImport} handleSave={handleSaveButton} handlePrev={handlePreviousButton} handleNext={handleNextButton} handleAdd={handleAddButton} handlePDF={handlePDF} handleSnap={handleSnap} currentStep={currentStep} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} diagramTitle={diagramTitle} setDiagramTitle={setDiagramTitle} />
+                        <ButtonBox 
+                            handleImport={handleImport} 
+                            handleSave={handleSaveButton} 
+                            handlePrev={handlePreviousButton} 
+                            handleNext={handleNextButton} 
+                            handleAdd={handleAddButton} 
+                            handleClearAll={handleClearAll}
+                            handlePDF={handlePDF} 
+                            handleSnap={handleSnap} 
+                            currentStep={currentStep} 
+                            totalSteps={totalSteps} 
+                            lineNumber={lineNumber} 
+                            setLineNumber={setLineNumber} 
+                            diagramTitle={diagramTitle} 
+                            setDiagramTitle={setDiagramTitle} />
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">

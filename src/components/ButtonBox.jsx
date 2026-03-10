@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 // ButtonBox : component containing previous, next, add step, and export buttons
-const ButtonBox = ({ handleImport, handleSave, handlePrev, handleNext, handleAdd, handlePDF, handleSnap, currentStep, totalSteps, diagramTitle, setDiagramTitle }) => {
+const ButtonBox = ({ handleImport, handleSave, handlePrev, handleNext, handleAdd, handleClearAll, handlePDF, handleSnap, currentStep, totalSteps, diagramTitle, setDiagramTitle }) => {
     const isPrevButtonDisabled = currentStep === 1;
     const isNextButtonDisabled = totalSteps === currentStep;
 
@@ -26,6 +26,10 @@ const ButtonBox = ({ handleImport, handleSave, handlePrev, handleNext, handleAdd
                 <input id="title-input" type="text" placeholder="untitled diagram" value={diagramTitle} onChange={e => setDiagramTitle(e.target.value)} className="flex flex-row bg-white hover:bg-gray-200 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full w-75 items-center text-xs sm:text-sm cursor-text border-2 outline-none"/>
             </div>
             <div className="relative flex flex-row border-orange-700 rounded-xl justify-between items-center gap-1">
+                <div onClick={handleClearAll} className="exclude-from-pdf flex flex-row items-center justify-center bg-red-300 hover:bg-red-400 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full cursor-pointer text-xs sm:text-sm active:bg-red-700">
+                    <p className="mr-2">clear all</p>
+                    <i className="fa-solid fa-circle-xmark"></i>
+                </div>
                 <div onClick={() => setShowExportModal(true)} className="exclude-from-pdf flex flex-row items-center justify-center bg-yellow-200 hover:bg-yellow-400 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full cursor-pointer text-xs sm:text-sm active:bg-yellow-700">
                     <p className="mr-2">export</p>
                     <i className="fa-solid fa-download"></i>
