@@ -668,6 +668,7 @@ const VisPage = () => {
                 setObjectItems(data.content[1].objects);
                 setLineNumber(data.content[1].line);
                 setCurrentStep(1);
+                setCode(data.code);
             } catch (error) {
                 console.error("error parsing file:", error);
             }
