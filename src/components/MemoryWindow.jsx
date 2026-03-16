@@ -42,21 +42,30 @@ const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, o
 //                primary droppable zone for VariableButton items,
 //                also displays currentStep and totalSteps,
 //                contains text input for user to enter lineNumber, saves this to lineNumber state variable
-const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectItems, onInputChange, onDelete, totalSteps, lineNumber, setLineNumber, currentStep }) => {
+const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectItems, onInputChange, onDelete, totalSteps, lineNumber, setLineNumber, currentStep, onDeleteStep }) => {
     return (
         <div className="flex flex-col w-full border-2 rounded-xl bg-gray-200" style={{height: '82vh'}}>
-            <div className="flex flex-row items-center justify-center mt-2">
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default mr-2">
-                    <p>line number</p>
-                    <input id={uuidv4()} type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
+            <div className="flex flex-row items-center mt-2 px-2">
+                <div className="flex-1" />
+                <div className="flex flex-row items-center justify-center gap-2">
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+                        <p>line number</p>
+                        <input id={uuidv4()} type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
+                    </div>
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+                        <p>step number</p>
+                        <input id={uuidv4()} value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
+                    </div>
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+                        <p>total steps</p>
+                        <input id={uuidv4()} type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
+                    </div>
                 </div>
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default mr-2">
-                    <p>step number</p>
-                    <input id={uuidv4()} value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
-                </div>
-                <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full h-full items-center text-xs sm:text-sm cursor-default">
-                    <p>total steps</p>
-                    <input id={uuidv4()} type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
+                <div className="flex-1 flex justify-end">
+                    <div onClick={onDeleteStep} className="flex flex-row bg-red-300 hover:bg-red-400 active:bg-red-700 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-pointer">
+                        <p>delete step</p>
+                        <i className="ml-2 fa-solid fa-trash"></i>
+                    </div>
                 </div>
             </div>
             <div className="flex flex-row w-full rounded-xl" style={{height: '72vh', maxHeight: '72vh'}}>

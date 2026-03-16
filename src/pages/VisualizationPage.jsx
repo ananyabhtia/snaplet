@@ -365,6 +365,42 @@ const VisPage = () => {
         }
     };
 
+    // handleDeleteStep():
+    //  function to delete the current step, resets view to (current step - 1)
+    const handleDeleteStep = () => {
+        if (currentStep === 1) {
+            setLineNumber("");
+            setTotalSteps(1);
+            setCurrentStep(1);
+            setGlobalsItems([]);
+            setStackItems([]);
+            setHeapItems([]);
+            setFrameItems([]);
+            setObjectItems([]);
+            setStepData({});
+        } else {
+            const oldCurrentStep = currentStep;
+            const newCurrentStep = oldCurrentStep - 1;
+            setTotalSteps(totalSteps - 1);
+            setCurrentStep(newCurrentStep);
+            setGlobalsItems(stepData[newCurrentStep].globals);
+            setStackItems(stepData[newCurrentStep].stack);
+            setHeapItems(stepData[newCurrentStep].heap);
+            setFrameItems(stepData[newCurrentStep].frames);
+            setObjectItems(stepData[newCurrentStep].objects);
+            setLineNumber(stepData[newCurrentStep].line);
+
+            const newStepData = {};
+            for (let i = 1; i < oldCurrentStep; i++) {
+                newStepData[i] = stepData[i];
+            }
+            for (let i = oldCurrentStep + 1; i <= totalSteps; i++) {
+                newStepData[i - 1] = stepData[i];
+            }
+            setStepData(newStepData);
+        }
+    }
+
     // useEffect to save changes to local storage on every change to memory state variables, diagram title, line number, codeWindow, or total steps
     useEffect(() => {
         const newStepData = {
@@ -522,10 +558,9 @@ const VisPage = () => {
     // handleClearAll() : function to clear all data and reset diagram
     const handleClearAll = () => {
         setDiagramTitle("untitled diagram");
-        setLineNumber();
+        setLineNumber("");
         setTotalSteps(1);
         setCurrentStep(1);
-        setGlobalsItems();
         setGlobalsItems([]);
         setStackItems([]);
         setHeapItems([]);
@@ -721,7 +756,7 @@ const VisPage = () => {
                             setLineNumber={setLineNumber} 
                             diagramTitle={diagramTitle} 
                             setDiagramTitle={setDiagramTitle} />
-                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} />
+                        <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} onDeleteStep={handleDeleteStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
                         <CodeWindow code={code} setCode={setCode} />
