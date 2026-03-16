@@ -368,7 +368,7 @@ const VisPage = () => {
     // handleDeleteStep():
     //  function to delete the current step, resets view to (current step - 1)
     const handleDeleteStep = () => {
-        if (currentStep === 1) {
+        if (totalSteps === 1) {
             setLineNumber("");
             setTotalSteps(1);
             setCurrentStep(1);
@@ -380,15 +380,18 @@ const VisPage = () => {
             setStepData({});
         } else {
             const oldCurrentStep = currentStep;
-            const newCurrentStep = oldCurrentStep - 1;
+            // if deleting step 1, show what was step 2; otherwise show the previous step
+            const viewStep = currentStep === 1 ? 2 : currentStep - 1;
+            const newCurrentStep = currentStep === 1 ? 1 : currentStep - 1;
+
             setTotalSteps(totalSteps - 1);
             setCurrentStep(newCurrentStep);
-            setGlobalsItems(stepData[newCurrentStep].globals);
-            setStackItems(stepData[newCurrentStep].stack);
-            setHeapItems(stepData[newCurrentStep].heap);
-            setFrameItems(stepData[newCurrentStep].frames);
-            setObjectItems(stepData[newCurrentStep].objects);
-            setLineNumber(stepData[newCurrentStep].line);
+            setGlobalsItems(stepData[viewStep].globals);
+            setStackItems(stepData[viewStep].stack);
+            setHeapItems(stepData[viewStep].heap);
+            setFrameItems(stepData[viewStep].frames);
+            setObjectItems(stepData[viewStep].objects);
+            setLineNumber(stepData[viewStep].line);
 
             const newStepData = {};
             for (let i = 1; i < oldCurrentStep; i++) {
