@@ -62,7 +62,7 @@ const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectIt
                     </div>
                 </div>
                 <div className="flex-1 flex justify-end">
-                    <div onClick={onDeleteStep} className="flex flex-row bg-red-300 hover:bg-red-400 active:bg-red-700 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-pointer">
+                    <div onClick={onDeleteStep} className="flex flex-row bg-fuchsia-300 hover:bg-fuchsia-400 active:bg-fuchsia-700 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-pointer">
                         <p>delete step</p>
                         <i className="ml-2 fa-solid fa-trash"></i>
                     </div>
