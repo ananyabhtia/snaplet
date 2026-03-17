@@ -762,7 +762,7 @@ const VisPage = () => {
                         <MemoryWindow globalsItems={globalsItems} stackItems={stackItems} heapItems={heapItems} frameItems={frameItems} objectItems={objectItems} onInputChange={onInputChange} onDelete={onDelete} totalSteps={totalSteps} lineNumber={lineNumber} setLineNumber={setLineNumber} currentStep={currentStep} onDeleteStep={handleDeleteStep} />
                     </div>
                     <div className="flex flex-col w-1/3 h-full border-purple-600 rounded-xl">
-                        <CodeWindow code={code} setCode={setCode} />
+                        <CodeWindow code={code} setCode={setCode} lineNumber={lineNumber} />
                         <VariablesWindow variableItems={variableItems} frameItems={frameItems} activeFrames={activeFrames} activeReturns={activeReturns} activeObjects={activeObjects} onInputChange={onInputChange} />
                     </div>
                 </div>
