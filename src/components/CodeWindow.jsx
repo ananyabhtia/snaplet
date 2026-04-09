@@ -22,7 +22,9 @@ const lineHighlightField = StateField.define({
         }
         for (let e of tr.effects) {
             if (e.is(addLineHighlight)) {
-                if (!e.value || e.value < 1 || e.value > tr.state.doc.lines) {
+                const lineNum = parseInt(e.value);
+
+                if (isNaN(lineNum) || lineNum < 1 || lineNum > tr.state.doc.lines) {
                     return Decoration.none;
                 }
                 
