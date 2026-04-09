@@ -9,4 +9,7 @@ export default defineConfig({
     tailwindcss()
   ],
   base: "/snaplet/",
+  build: {
+    sourcemap: true,
+    }
 })
