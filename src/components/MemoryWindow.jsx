@@ -45,24 +45,24 @@ const MemorySlot = ({id, label, items, frameItems, objectItems, onInputChange, o
 const MemoryWindow = ({globalsItems, stackItems, heapItems, frameItems, objectItems, onInputChange, onDelete, totalSteps, lineNumber, setLineNumber, currentStep, onDeleteStep }) => {
     return (
         <div className="flex flex-col w-full border-2 rounded-xl bg-gray-200" style={{height: '82vh'}}>
-            <div className="flex flex-row items-center mt-2 px-2">
-                <div className="flex-1" />
-                <div className="flex flex-row items-center justify-center gap-2">
-                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+            <div className="flex flex-row flex-wrap items-center mt-2 px-2 gap-2 justify-center w-full">
+                <div className="hidden md:block flex-1" />
+                <div className="flex flex-row items-center justify-center gap-2 flex-wrap">
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default whitespace-nowrap">
                         <p>line number</p>
                         <input id={uuidv4()} type="text" value={lineNumber} onChange={e => setLineNumber(e.target.value)} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm"></input>
                     </div>
-                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default whitespace-nowrap">
                         <p>step number</p>
                         <input id={uuidv4()} value={currentStep} readOnly={true} type="text" className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                     </div>
-                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default">
+                    <div className="flex flex-row bg-purple-300 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-default whitespace-nowrap">
                         <p>total steps</p>
                         <input id={uuidv4()} type="text" value={totalSteps} readOnly={true} className="bg-white ml-1 sm:ml-2 text-black rounded-full pl-1 sm:pl-2 w-6 sm:w-10 text-xs sm:text-sm cursor-default"></input>
                     </div>
                 </div>
-                <div className="flex-1 flex justify-end">
-                    <div onClick={onDeleteStep} className="flex flex-row bg-fuchsia-300 hover:bg-fuchsia-400 active:bg-fuchsia-700 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-pointer">
+                <div className="flex-1 flex justify-center md:justify-end">
+                    <div onClick={onDeleteStep} className="flex flex-row bg-fuchsia-300 hover:bg-fuchsia-400 active:bg-fuchsia-700 font-bold py-1 px-2 sm:py-2 sm:px-4 rounded-full items-center text-xs sm:text-sm cursor-pointer whitespace-nowrap">
                         <p>delete step</p>
                         <i className="ml-2 fa-solid fa-trash"></i>
                     </div>
