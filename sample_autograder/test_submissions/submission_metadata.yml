@@ -1,0 +1,433 @@
+---
+submission_405989818:
+  :submitters:
+  - :name: test3
+    :sid: abc1234
+    :email: blahblahblah@blah
+  :created_at: 2026-04-15 20:57:49.959815000 Z
+  :score: 18.0
+  :status: processed
+  :results:
+    score: 3.0
+    tests:
+    - name: Test evaluate function.
+      tags: 
+      score: 1.0
+      number: '3'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test optimize function.
+      tags: 
+      score: 1.0
+      number: '2'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test remove_punctuation function.
+      tags: 
+      score: 1.0
+      number: '1'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Check submitted files.
+      tags: 
+      score: 0.0
+      number: 
+      output: 'All required files submitted!, You''re on the right track with Assignment
+        3!
+
+'
+      status: passed
+      max_score: 0.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    output: |-
+      *****************************
+      This is submission 3 of 10.
+      After 10 submissions, only submission 10's score will count.
+    extra_data: 
+    visibility: visible
+    leaderboard: []
+    output_format: 
+    execution_time: 0.0
+    test_name_format: 
+    test_output_format: 
+  :history:
+  - :submitters: []
+    :created_at: 2026-04-15 20:25:08.087621000 Z
+    :score: 3.0
+    :status: processed
+    :results:
+      score: 3.0
+      tests:
+      - name: Test evaluate function.
+        tags: 
+        score: 1.0
+        number: '3'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test optimize function.
+        tags: 
+        score: 1.0
+        number: '2'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test remove_punctuation function.
+        tags: 
+        score: 1.0
+        number: '1'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Check submitted files.
+        tags: 
+        score: 0.0
+        number: 
+        output: 'All required files submitted!, You''re on the right track with Assignment
+          3!
+
+'
+        status: passed
+        max_score: 0.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      output: |-
+        *****************************
+        This is submission 1 of 10.
+        After 10 submissions, only submission 10's score will count.
+      extra_data: 
+      visibility: visible
+      leaderboard: []
+      output_format: 
+      execution_time: 0.0
+      test_name_format: 
+      test_output_format: 
+    :id: 405976135
+  - :submitters: []
+    :created_at: 2026-04-15 20:40:55.788311000 Z
+    :score: 3.0
+    :status: processed
+    :results:
+      score: 3.0
+      tests:
+      - name: Test evaluate function.
+        tags: 
+        score: 1.0
+        number: '3'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test optimize function.
+        tags: 
+        score: 1.0
+        number: '2'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test remove_punctuation function.
+        tags: 
+        score: 1.0
+        number: '1'
+        output: 
+        status: passed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Check submitted files.
+        tags: 
+        score: 0.0
+        number: 
+        output: 'All required files submitted!, You''re on the right track with Assignment
+          3!
+
+'
+        status: passed
+        max_score: 0.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      output: |-
+        *****************************
+        This is submission 2 of 10.
+        After 10 submissions, only submission 10's score will count.
+      extra_data: 
+      visibility: visible
+      leaderboard: []
+      output_format: 
+      execution_time: 0.0
+      test_name_format: 
+      test_output_format: 
+    :id: 405982150
+submission_404878470:
+  :submitters:
+  - :name: test2
+    :sid: abc1234
+    :email: blahblahblah@blah
+  :created_at: 2026-04-11 12:27:22.959750000 Z
+  :score: 0.0
+  :status: processed
+  :results:
+    score: 0.0
+    tests:
+    - name: Test evaluate function.
+      tags: 
+      score: 0.0
+      number: '3'
+      output: 'Test Failed: Failed to import evaluate.py
+
+'
+      status: failed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test optimize function.
+      tags: 
+      score: 0.0
+      number: '2'
+      output: 'Test Failed: Failed to import optimize.py
+
+'
+      status: failed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test remove_punctuation function.
+      tags: 
+      score: 0.0
+      number: '1'
+      output: 'Test Failed: Failed to import punctuation.py
+
+'
+      status: failed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Check submitted files.
+      tags: 
+      score: 0.0
+      number: 
+      output: |
+        Missing diagram_func_simple.pdf
+        Missing diagram_list_function.pdf
+        Missing debugging.pdf
+        Missing punctuation.py
+        Missing optimize.py
+        Missing evaluate.py
+
+        Test Failed: 6 != 0 : Missing some required files!
+      status: failed
+      max_score: 0.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    output: |-
+      *****************************
+      This is submission 2 of 10.
+      After 10 submissions, only submission 10's score will count.
+    extra_data: 
+    visibility: visible
+    leaderboard: []
+    output_format: 
+    execution_time: 0.0
+    test_name_format: 
+    test_output_format: 
+  :history:
+  - :submitters: []
+    :created_at: 2026-04-11 12:17:07.694245000 Z
+    :score: 0.0
+    :status: processed
+    :results:
+      score: 0.0
+      tests:
+      - name: Test evaluate function.
+        tags: 
+        score: 0.0
+        number: '3'
+        output: 'Test Failed: Failed to import evaluate.py
+
+'
+        status: failed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test optimize function.
+        tags: 
+        score: 0.0
+        number: '2'
+        output: 'Test Failed: Failed to import optimize.py
+
+'
+        status: failed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Test remove_punctuation function.
+        tags: 
+        score: 0.0
+        number: '1'
+        output: 'Test Failed: Failed to import punctuation.py
+
+'
+        status: failed
+        max_score: 1.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      - name: Check submitted files.
+        tags: 
+        score: 0.0
+        number: 
+        output: |
+          Missing diagram_loop.pdf
+          Missing diagram_func_simple.pdf
+          Missing diagram_list_function.pdf
+          Missing debugging.pdf
+          Missing punctuation.py
+          Missing optimize.py
+          Missing evaluate.py
+
+          Test Failed: 7 != 0 : Missing some required files!
+        status: failed
+        max_score: 0.0
+        extra_data: 
+        visibility: 
+        name_format: 
+        output_format: 
+      output: |-
+        *****************************
+        This is submission 1 of 10.
+        After 10 submissions, only submission 10's score will count.
+      extra_data: 
+      visibility: visible
+      leaderboard: []
+      output_format: 
+      execution_time: 0.0
+      test_name_format: 
+      test_output_format: 
+    :id: 404877886
+submission_404610993:
+  :submitters:
+  - :name: test1
+    :sid: abc1234
+    :email: blahblahblah@blah
+  :created_at: 2026-04-10 16:30:11.604665000 Z
+  :score: 3.0
+  :status: processed
+  :results:
+    score: 3.0
+    tests:
+    - name: Test evaluate function.
+      tags: 
+      score: 1.0
+      number: '3'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test optimize function.
+      tags: 
+      score: 1.0
+      number: '2'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Test remove_punctuation function.
+      tags: 
+      score: 1.0
+      number: '1'
+      output: 
+      status: passed
+      max_score: 1.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    - name: Check submitted files.
+      tags: 
+      score: 0.0
+      number: 
+      output: |
+        Missing diagram_nested.pdf
+        Missing debugging.pdf
+
+        Test Failed: 2 != 0 : Missing some required files!
+      status: failed
+      max_score: 0.0
+      extra_data: 
+      visibility: 
+      name_format: 
+      output_format: 
+    output: |-
+      *****************************
+      This is submission 1 of 10.
+      After 10 submissions, only submission 10's score will count.
+    extra_data: 
+    visibility: visible
+    leaderboard: []
+    output_format: 
+    execution_time: 0.0
+    test_name_format: 
+    test_output_format: 
+  :history: []
