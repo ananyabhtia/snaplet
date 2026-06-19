@@ -22,7 +22,6 @@ const VariableButton = ({ id, name, value, type, position, items, onInputChange,
                 <div className="text-sm flex flex-row items-center bg-pink-300 hover:bg-pink-400 font-bold py-2 px-4 rounded-xl border-2 border-pink-400 h-10 mt-2 ml-2 mr-2 mb-1 w-95/100 z-1000 cursor-move">
                     {/* <p>{id}</p> */}
                     <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-2/6 rounded-full pl-2" value={name || ""} onChange={e => onInputChange(id, e.target.value, value, position, type)}></input>
-                    <p>=</p>
                     <input id={uuidv4()} onPointerDown={(e) => e.stopPropagation()} type="text" className="bg-white ml-2 mr-2 text-black w-3/6 rounded-full pl-2" value={value || ""} onChange={e => onInputChange(id, name, e.target.value, position, type)}></input>
                     {position !== "bank" && (<i onPointerDown={(e) => e.stopPropagation()} onClick={() => onDelete(id, type, position)} className="fa-solid fa-trash active:text-red-600 text-md ml-auto cursor-pointer"></i>)}
                 </div>
