@@ -1,0 +1,327 @@
+{
+  "metadata": {
+    "title": "loop_diagram",
+    "snapletVersion": 1,
+    "totalSteps": 12
+  },
+  "content": {
+    "1": {
+      "globals": [],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "1"
+    },
+    "2": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "2"
+    },
+    "3": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "3"
+    },
+    "4": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "4"
+    },
+    "5": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "3"
+    },
+    "6": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "0",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "4"
+    },
+    "7": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "3"
+    },
+    "8": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "2",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "4"
+    },
+    "9": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "2",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "3"
+    },
+    "10": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "4"
+    },
+    "11": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "6",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "3"
+    },
+    "12": {
+      "globals": [
+        {
+          "id": "0bd2a49b-ef63-4142-85f7-079e2ac7f96e",
+          "name": "x",
+          "value": "4",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "229ec49d-c8fb-4b71-84fc-19f35ce6ba5e",
+          "name": "total",
+          "value": "6",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7b4f3f0a-1b90-4ca6-a987-d6122366936e",
+          "name": "y",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": ""
+    }
+  },
+  "code": "x = 4\ntotal = 0\nfor y in range(x):\ntotal = total + y\n"
+}

@@ -1,0 +1,597 @@
+{
+  "metadata": {
+    "title": "diagram_func_simple",
+    "snapletVersion": 1,
+    "totalSteps": 13
+  },
+  "content": {
+    "1": {
+      "globals": [],
+      "stack": [],
+      "heap": [],
+      "frames": [],
+      "objects": [],
+      "line": "1"
+    },
+    "2": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": [],
+      "objects": [],
+      "line": "5"
+    },
+    "3": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "88979e4e-7274-4586-9087-e5fd3bacafa5",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "88979e4e-7274-4586-9087-e5fd3bacafa5": [
+          {
+            "id": "8a8be4d6-cfe8-4c8e-ba3d-b0f9076de484",
+            "name": "x",
+            "value": "1",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          },
+          {
+            "id": "acb57f44-b9d9-4aad-948f-87924bc9b918",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "1"
+    },
+    "4": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "88979e4e-7274-4586-9087-e5fd3bacafa5",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "88979e4e-7274-4586-9087-e5fd3bacafa5": [
+          {
+            "id": "8a8be4d6-cfe8-4c8e-ba3d-b0f9076de484",
+            "name": "x",
+            "value": "1",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          },
+          {
+            "id": "acb57f44-b9d9-4aad-948f-87924bc9b918",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "2"
+    },
+    "5": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "88979e4e-7274-4586-9087-e5fd3bacafa5",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "88979e4e-7274-4586-9087-e5fd3bacafa5": [
+          {
+            "id": "8a8be4d6-cfe8-4c8e-ba3d-b0f9076de484",
+            "name": "x",
+            "value": "1",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          },
+          {
+            "id": "acb57f44-b9d9-4aad-948f-87924bc9b918",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "3"
+    },
+    "6": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "88979e4e-7274-4586-9087-e5fd3bacafa5",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "88979e4e-7274-4586-9087-e5fd3bacafa5": [
+          {
+            "id": "8a8be4d6-cfe8-4c8e-ba3d-b0f9076de484",
+            "name": "x",
+            "value": "3",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          },
+          {
+            "id": "acb57f44-b9d9-4aad-948f-87924bc9b918",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "4"
+    },
+    "7": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "88979e4e-7274-4586-9087-e5fd3bacafa5",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "88979e4e-7274-4586-9087-e5fd3bacafa5": [
+          {
+            "id": "60ccada4-2e79-46c5-92b4-f8533f367f58",
+            "name": "",
+            "value": "3",
+            "type": "ret",
+            "position": "stack-frame-88979e4e-7274-4586-9087-e5fd3bacafa5"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "5"
+    },
+    "8": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {},
+      "objects": [],
+      "line": "6"
+    },
+    "9": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "26f255ed-7da8-4780-b1cc-22cb4f2067e8",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "26f255ed-7da8-4780-b1cc-22cb4f2067e8": [
+          {
+            "id": "90c74ece-e76c-4761-ad2d-184a3c344b29",
+            "name": "x",
+            "value": "3",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          },
+          {
+            "id": "28c348ca-00d4-4130-9ca6-6d9a8ab3125b",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "1"
+    },
+    "10": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "26f255ed-7da8-4780-b1cc-22cb4f2067e8",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "26f255ed-7da8-4780-b1cc-22cb4f2067e8": [
+          {
+            "id": "90c74ece-e76c-4761-ad2d-184a3c344b29",
+            "name": "x",
+            "value": "3",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          },
+          {
+            "id": "28c348ca-00d4-4130-9ca6-6d9a8ab3125b",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "2"
+    },
+    "11": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "26f255ed-7da8-4780-b1cc-22cb4f2067e8",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "26f255ed-7da8-4780-b1cc-22cb4f2067e8": [
+          {
+            "id": "90c74ece-e76c-4761-ad2d-184a3c344b29",
+            "name": "x",
+            "value": "3",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          },
+          {
+            "id": "28c348ca-00d4-4130-9ca6-6d9a8ab3125b",
+            "name": "y",
+            "value": "2",
+            "type": "variable",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "4"
+    },
+    "12": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [
+        {
+          "id": "26f255ed-7da8-4780-b1cc-22cb4f2067e8",
+          "name": "foo",
+          "type": "frame",
+          "position": "stack",
+          "items": []
+        }
+      ],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "26f255ed-7da8-4780-b1cc-22cb4f2067e8": [
+          {
+            "id": "97405323-fd2f-4805-9551-53ebbf0737a8",
+            "name": "",
+            "value": "3",
+            "type": "ret",
+            "position": "stack-frame-26f255ed-7da8-4780-b1cc-22cb4f2067e8"
+          }
+        ],
+        "6ae3cee2-437f-4e88-9f48-e184aff3414c": [
+          {
+            "id": "f4573eec-622d-484b-8b1b-e7cc793938b3",
+            "name": "",
+            "value": "",
+            "type": "variable",
+            "position": "stack-frame-6ae3cee2-437f-4e88-9f48-e184aff3414c"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "6"
+    },
+    "13": {
+      "globals": [
+        {
+          "id": "afbc0e60-8780-4671-bb52-951fdde81f9d",
+          "name": "foo",
+          "value": "id1",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7dc3d530-4337-4829-ad84-c6d4d6803394",
+          "name": "a",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        },
+        {
+          "id": "7868e16f-c2dd-48a6-80ae-d13fbf505093",
+          "name": "b",
+          "value": "3",
+          "type": "variable",
+          "position": "globals"
+        }
+      ],
+      "stack": [],
+      "heap": [
+        {
+          "id": "b08f4b38-b127-4040-aa4c-b84c43108b28",
+          "name": "id1",
+          "type": "object",
+          "position": "heap",
+          "items": [],
+          "value": "function"
+        }
+      ],
+      "frames": {
+        "6ae3cee2-437f-4e88-9f48-e184aff3414c": [
+          {
+            "id": "f4573eec-622d-484b-8b1b-e7cc793938b3",
+            "name": "",
+            "value": "",
+            "type": "variable",
+            "position": "stack-frame-6ae3cee2-437f-4e88-9f48-e184aff3414c"
+          }
+        ]
+      },
+      "objects": [],
+      "line": "DONE"
+    }
+  },
+  "code": "def foo(x, y):\n if y > x:\n x = x + y\n return x\na = foo(1, 2)\nb = foo(a, 2)"
+}
