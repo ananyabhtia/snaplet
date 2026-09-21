@@ -683,7 +683,7 @@ const VisPage = () => {
             }
         }
 
-        doc.save("diagram.pdf");
+        doc.save(`${diagramTitle.replace(/\s+/g, '_')}.pdf`);
     }
 
     // handleImport(event) : function to handle file upload for import functionality
