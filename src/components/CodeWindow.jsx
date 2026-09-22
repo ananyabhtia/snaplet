@@ -8,7 +8,7 @@ import "../styles/CodeWindow.css";
 const setLineHighlights = StateEffect.define();
 
 const lineHighlightMarkCurrent = Decoration.line({
-    attributes: {style: 'background-color: #f5f0acff'},
+    attributes: {style: 'background-color: #fcddddff'},
 }); 
 
 const lineHighlightMarkPrevious = Decoration.line({
