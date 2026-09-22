@@ -5,7 +5,15 @@ import { noctisLilac } from "@uiw/codemirror-theme-noctis-lilac";
 import { useRef, useEffect } from "react";
 import "../styles/CodeWindow.css";
 
-const addLineHighlight = StateEffect.define();
+const setLineHighlights = StateEffect.define();
+
+const lineHighlightMarkCurrent = Decoration.line({
+    attributes: {style: 'background-color: #f5f0acff'},
+}); 
+
+const lineHighlightMarkPrevious = Decoration.line({
+    attributes: {style: 'background-color: #d3f1dfff'},
+}); 
 
 const lineHighlightField = StateField.define({
     create() {
@@ -20,16 +28,35 @@ const lineHighlightField = StateField.define({
                 return Decoration.none;
             }
         }
-        for (let e of tr.effects) {
-            if (e.is(addLineHighlight)) {
-                const lineNum = parseInt(e.value);
+        for (const e of tr.effects) {
+            if (e.is(setLineHighlights)) {
+                const { current, previous } = e.value;
+                const totalLines = tr.state.doc.lines;
+                const decorations = [];
 
-                if (isNaN(lineNum) || lineNum < 1 || lineNum > tr.state.doc.lines) {
-                    return Decoration.none;
+                const prevNum = parseInt(previous, 10);
+                const currNum = parseInt(current, 10);
+
+                const hasPrev = !isNaN(prevNum) && prevNum >= 1 && prevNum <= totalLines;
+                const hasCurr = !isNaN(currNum) && currNum >= 1 && currNum <= totalLines;
+
+                if (hasPrev && hasCurr && prevNum === currNum) {
+                    const pos = tr.state.doc.line(currNum).from;
+                    decorations.push(lineHighlightMarkCurrent.range(pos));
+                } else {
+                    if (hasPrev) {
+                        const pos = tr.state.doc.line(prevNum).from;
+                        decorations.push(lineHighlightMarkPrevious.range(pos));
+                    }
+                    if (hasCurr) {
+                        const pos = tr.state.doc.line(currNum).from;
+                        decorations.push(lineHighlightMarkCurrent.range(pos));
+                    }
                 }
-                
-                const pos = tr.state.doc.line(e.value).from;
-                return Decoration.set([lineHighlightMark.range(pos)]);
+
+                decorations.sort((a, b) => a.from - b.from);
+
+                return Decoration.set(decorations);
             }
         }
         return lines;
@@ -37,27 +64,29 @@ const lineHighlightField = StateField.define({
     provide: (f) => EditorView.decorations.from(f),
 });
 
-const lineHighlightMark = Decoration.line({
-    attributes: {style: 'background-color: #f5f0acff'},
-}); 
-
 // CodeWindow : component styled to look like a code editor with Python syntax highlighting and line numbers
 //              for users to paste their code into and refer to while diagramming, uses CodeMirror package        
-const CodeWindow = ({ code, setCode, lineNumber }) => {
+const CodeWindow = ({ code, setCode, lineNumber, previousLineNumber }) => {
     const editorRef = useRef(null);
 
     useEffect(() => {
         if (editorRef.current?.view) {
             editorRef.current.view.dispatch({
-                effects: addLineHighlight.of(lineNumber || null)
+                effects: setLineHighlights.of({
+                    current: lineNumber || null,
+                    previous: previousLineNumber || null
+                }),
             });
         }
-    }, [lineNumber]);
+    }, [lineNumber, previousLineNumber]);
 
     const handleCreateEditor = (view) => {
-        if (lineNumber) {
+        if (lineNumber || previousLineNumber) {
             view.dispatch({
-                effects: addLineHighlight.of(lineNumber)
+                effects: setLineHighlights.of({
+                    current: lineNumber || null,
+                    previous: previousLineNumber || null
+                }),
             })
         }
     }
